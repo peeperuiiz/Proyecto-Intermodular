@@ -8,46 +8,47 @@ const Home = () => {
         <main>
             <section className="bg-[url('/src/assets/home/banner.jpg')] bg-cover bg-center h-screen flex">
                 <div className='m-auto text-white font-semibold text-shadow-lg/80'>
-                    <h1 className='text-[125px]'>AeroElite</h1>
+                    <h1 className='text-[100px] md:text-[125px]'>AeroElite</h1>
                     <p className='text-lg'>Fly better, fly elite</p>
                 </div>
             </section>
             <section>   
                 <div className='flex flex-col justify-evenly items-center text-neutral-900 font-semibold my-[50px]'>      
-                    <div className='flex gap-50 my-auto text-neutral-900 text-[20px] mb-[50px]'>   
+                    <div className='flex flex-col text-center lg:flex-row gap-10 lg:gap-50 my-auto text-neutral-900 text-[20px] mb-[50px]'>   
                         <p><span className=''>&#10003;</span> Total privacity</p>   
                         <p><span className=''>&#10003;</span> Transparent prices</p>
                         <p><span className=''>&#10003;</span> Fully customizable</p>
                     </div>
-                    <div className='text-center'>
+                    <div className='text-center w-[80%] mx-auto'>
                         <h2 className='text-[45px]'>Our fleet</h2>
-                        <div className="grid grid-cols-5 grid-rows-5 gap-4">
-                            <div className="col-span-3 row-span-2">
-                                <img src="" alt="" />
+                        <div className="flex-col lg:grid lg:grid-cols-5 lg:grid-rows-4 lg:gap-4 my-[50px]">
+                            <div className="w-full lg:col-span-3 lg:row-span-2 bg-[url(/src/assets/home/grid1.webp)] bg-center bg-cover h-[250px]">
                             </div>
-                            <div className="col-span-2 row-span-2 col-start-4">
-                                <img src="" alt="" />
+                            <div className="w-full lg:col-span-2 lg:row-span-2 lg:col-start-4 bg-[url(/src/assets/home/grid2.jpg)] bg-center bg-cover h-[250px]">
                             </div>
-                            <div className="col-span-2 row-span-2 row-start-3">
-                                <img src="" alt="" />
+                            <div className="w-full lg:col-span-2 lg:row-span-2 lg:row-start-3 bg-[url(/src/assets/home/grid3.jpg)] bg-center bg-cover h-[250px]">
                             </div>
-                            <div className="col-span-3 row-span-2 col-start-3 row-start-3">
-                                <img src="" alt="" />
+                            <div className="w-full lg:col-span-3 lg:row-span-2 lg:col-start-3 lg:row-start-3 bg-[url(/src/assets/home/grid4.jpeg)] bg-center bg-cover h-[250px]">
                             </div>
                         </div>
-                        <a href="" className='text-neutral-900 py-3 px-5 border-2 border-neutral-900 rounded-[8px] font-semibold hover:text-white hover:border-white hover:bg-neutral-900 ease-in-out duration-200'>See More</a>                    </div>
+                        <a href="" className='text-neutral-900 py-3 px-5 border-2 border-neutral-900 rounded-[8px] font-semibold hover:text-white hover:border-white hover:bg-neutral-900 ease-in-out duration-200'>See More</a>                    
+                    </div>
                 </div>
             </section>
             <section className='bg-[#0B1F3A] text-white'>
-                <h2 className='text-[45px] font-semibold w-[50%] mx-auto py-[35px]'>Our Clients</h2>
-                <div className='flex justify-center gap-[50px] pb-[50px]'>
-                    <div className='w-[20%]'>
+                <h2 className='text-[45px] font-semibold w-[70%] mx-auto py-[35px]'>Our Clients</h2>
+                <div className='flex flex-col lg:flex-row justify-center items-center gap-[50px] pb-[50px]'>
+                    <div className='w-[200px] md:w-[400px] lg:w-[17%]'>
                         <p><i>"Exceptional service from start to finish. The jet was immaculate, and the crew was incredibly professional."</i></p>
                         <p>- James</p>
                     </div>
-                    <div className='w-[20%]'>
+                    <div className='w-[200px] md:w-[400px] lg:w-[17%]'>
                         <p><i>"Flying privately has never felt this smooth and personalized."</i></p>
                         <p>- Tod</p>
+                    </div>
+                    <div className='w-[200px] md:w-[400px] lg:w-[17%]'>
+                        <p><i>"AeroElite offers top-tier private jet services with exceptional comfort, punctuality, and personalized attention—ideal for business or luxury travel."</i></p>
+                        <p>- Jeff</p>
                     </div>
                 </div>
             </section>

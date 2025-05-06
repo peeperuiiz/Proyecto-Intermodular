@@ -20,7 +20,7 @@ const Header = () => {
                     <Link to='/contact' className='hover:text-white duration-300'>Contact</Link>
                 </div>
                 <div className='hidden md:block md:w-[20%] md:text-end md:text-cyan-200'>
-                    <Link to='/register' className='hover:text-white duration-300'>Registrar</Link>
+                    <Link to='/register' className='hover:text-white duration-300'>Sign In</Link>
                 </div>
                 <div className="md:hidden">
                     <button onClick={() => setMenuOpen(!menuOpen)} className="text-cyan-200 cursor-pointer">
@@ -32,7 +32,7 @@ const Header = () => {
                 <div className="md:hidden px-6 pb-4 space-y-3 text-cyan-200 font-semibold text-lg">
                     <Link to="/" className="block hover:text-white duration-300 w-[15%]">Home</Link>
                     <Link to="/contact" className="block hover:text-white duration-300 w-[15%]">Contact</Link>
-                    <Link to="/register" className="block hover:text-white duration-300 w-[15%]">Registrar</Link>
+                    <Link to="/register" className="block hover:text-white duration-300 w-[15%]">Sign In</Link>
                 </div>
             )}
         </header>

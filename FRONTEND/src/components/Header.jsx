@@ -5,8 +5,11 @@ import logo from '../assets/logo.png';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Header = () => {
+const Header = ({type}) => {
+    
     const [menuOpen, setMenuOpen] = useState(false);
+
+    console.log(type);
 
   return (
     <>
@@ -16,11 +19,24 @@ const Header = () => {
                     <img src={logo} alt="" className='w-[75px]'/>
                 </div>
                 <div className='hidden md:w-[300px] md:flex md:justify-between md:text-cyan-200'>
-                    <Link to='/' className='hover:text-white duration-300'>Home</Link>
-                    <Link to='/contact' className='hover:text-white duration-300'>Contact</Link>
+                    {
+                    type.filter(item => item !== 'Log Out' && item !== 'Sign In').map((item, index) => {
+                    
+                        return (
+                            <Link key={index} to={item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`} className='hover:text-white duration-300'>{item}</Link>
+                        )
+                    
+                    })}
                 </div>
                 <div className='hidden md:block md:w-[20%] md:text-end md:text-cyan-200'>
-                    <Link to='/register' className='hover:text-white duration-300'>Sign In</Link>
+                {
+                    type.filter(item => item === 'Log Out' || item === 'Sign In').map((item, index) => {
+                    
+                        return (
+                            <Link key={index} to={item === 'Log Out' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`} className='hover:text-white duration-300'>{item}</Link>
+                        )
+                    
+                    })}
                 </div>
                 <div className="md:hidden">
                     <button onClick={() => setMenuOpen(!menuOpen)} className="text-cyan-200 cursor-pointer">

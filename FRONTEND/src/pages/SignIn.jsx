@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Signin = () => {
+    const navigate = useNavigate();
+
     const [isSignUp, setIsSignUp] = useState(false);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
@@ -29,11 +31,16 @@ const Signin = () => {
 
         fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=signInNewUser', {
             method: 'POST',
-            body: formData
+            body: formData,
+            credentials: 'include'
         })
         .then((res) => res.text())
         .then(data => {
             console.log(data);
+
+            if (!data.includes('err')) {
+                navigate('/');
+            }
         })
     }
 
@@ -47,11 +54,16 @@ const Signin = () => {
 
         fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=logInUser', {
             method: 'POST',
-            body: formData
+            body: formData,
+            credentials: 'include'
         })
         .then((res) => res.text())
         .then(data => {
             console.log(data);
+
+            if (!data.includes('err')) {
+                navigate('/');
+            }
         })
     }
 
@@ -70,7 +82,7 @@ const Signin = () => {
                                     <input type="checkbox" name="" id="" className='ml-2' checked={checkLI} onChange={(e) => setCheckLI(e.target.checked) }/>
                                     <p className='text-[#0B1F3A]'>Remember me</p>
                                 </div>
-                                <input type="submit" value="SUBMIT" className="rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] bg-white font-bold text-sm hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200" onClick={() => navigate('/')}/>
+                                <input type="submit" value="SUBMIT" className="rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] bg-white font-bold text-sm hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200"/>
                             </form>
                         </div>
                         <div className="w-1/2 p-10 flex flex-col justify-center items-center transition-all duration-500">
@@ -86,7 +98,7 @@ const Signin = () => {
                                     <input type="checkbox" name="check" className='ml-2' checked={checkSI} onChange={(e) => setCheckSI(e.target.checked)}/>
                                     <p className='text-[#0B1F3A]'>Remember me</p>
                                 </div>
-                                <input type="submit" value="SING UP" name="btt" className="rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] bg-white font-bold text-sm hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200" onClick={() => navigate('/')}/>
+                                <input type="submit" value="SING UP" name="btt" className="rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] bg-white font-bold text-sm hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200"/>
                             </form>
                         </div>
                     </div>

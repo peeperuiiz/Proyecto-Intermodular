@@ -5,24 +5,24 @@ class User{
 
     //CONSTRUCTOR
     public function __construct(){
-        require_once('./class.bd.php');
+        require_once('class.bd.php');
 
         $this->con = (new bd())->getConexion();
     }
 
     //FUNCTIONS
     public function getUser($nom_u){
-        $sentencia = 'select * from usuarios where nom_usu = ?';
+        $sentencia = 'select dni, nombre, apellidos, email, nom_usu, h_vuelo, membresia, tipo from usuarios where nom_usu = ?';
 
         $consulta = $this->con->prepare($sentencia);
         $consulta->bind_param('s', $nom_u);
-        $consulta->bind_result($dni, $nombre, $apellidos, $nom_usu, $h_vuelo, $membresia, $tipo);
+        $consulta->bind_result($dni, $nombre, $apellidos, $email, $nom_usu, $h_vuelo, $membresia, $tipo);
         $consulta->execute();
 
         $userInfo = array();
 
         while($consulta->fetch()){
-            array_push($userInfo, [$dni, $nombre, $apellidos, $nom_usu, $h_vuelo, $membresia, $tipo]);
+            array_push($userInfo, [$dni, $nombre, $apellidos, $email, $nom_usu, $h_vuelo, $membresia, $tipo]);
         }
 
         $consulta->close();
@@ -85,7 +85,7 @@ class User{
         }else{
             $consulta->close();
 
-            $sentencia = 'insert into usuarios values (?,?,?,?,?,?, 0, 0, "R")';
+            $sentencia = 'insert into usuarios values (?,?,?,?,?,?, 0, 1, "R")';
 
             $consulta = $this->con->prepare($sentencia);
             $consulta->bind_param('ssssss', $id, $nom, $ape, $email, $nom_u, $pass);

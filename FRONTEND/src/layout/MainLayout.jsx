@@ -14,6 +14,7 @@ const MainLayout = () => {
     })
     .then(response => response.json())
     .then(data => {
+        console.log('Data from API:', data);
 
         let options;
 

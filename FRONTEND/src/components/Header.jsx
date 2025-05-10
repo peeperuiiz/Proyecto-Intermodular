@@ -9,8 +9,6 @@ const Header = ({type}) => {
     
     const [menuOpen, setMenuOpen] = useState(false);
 
-    console.log(type);
-
   return (
     <>
         <header className='bg-[#0B1F3A] text-white text-xl font-semibold'>

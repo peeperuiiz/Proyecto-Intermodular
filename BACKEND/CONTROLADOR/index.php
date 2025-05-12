@@ -1,4 +1,13 @@
 <?php
+session_set_cookie_params([
+  'lifetime' => 0,
+  'path' => '/',
+  'domain' => 'localhost',
+  'secure' => true,
+  'httponly' => true,
+  'samesite' => 'None'
+]);
+
 session_start();
 
 header("Access-Control-Allow-Origin: http://localhost:5173");
@@ -77,6 +86,12 @@ function logInUser(){
             echo json_encode(['cookies' => true]);
         }
     }
+}
+
+function logOutUser(){
+    $_SESSION = array();
+
+    session_destroy();
 }
 
 ?>

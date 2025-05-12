@@ -20,11 +20,11 @@ const MainLayout = () => {
 
         switch (data.type) {
         case 'A':
-            options = ['Schedule', 'Accounting'];
+            options = ['Schedule', 'Accounting', 'Log Out'];
         break;
         
         case 'R':
-            options = ['Home', 'Fleet', 'Book', 'Contact', 'Log Out'];
+            options = ['Home', 'Fleet', 'Book', 'Membership', 'Contact', 'Log Out'];
         break;
 
         case 'G':

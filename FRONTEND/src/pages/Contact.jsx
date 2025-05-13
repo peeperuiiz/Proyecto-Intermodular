@@ -1,6 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Contact = () => {
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [comment, setComment] = useState('');
+    
+    const handleSubmitContact = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('comment', comment);
+
+        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=submitContactData', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then((res) => res.text())
+    }
+
+
   return (
     <>
 
@@ -17,13 +38,13 @@ const Contact = () => {
                 </div>
             </div>
             <div className='w-full lg:w-[40%] bg-[#0B1F3A] p-[30px] rounded-lg'>
-                <form className='flex flex-col h-full'>
+                <form onSubmit={handleSubmitContact} className='flex flex-col h-full'>
                     <label htmlFor="name" className='text-[20px] font-semibold text-white mb-1'>Full Name</label>
-                    <input type="text" name="name" id="name" placeholder="Your name" className='mb-2 px-3 py-1 bg-white rounded-lg border-1 border-gray-300' required/>
+                    <input type="text" name="name" id="name" placeholder="Your name" className='mb-2 px-3 py-1 bg-white rounded-lg border-1 border-gray-300' required onChange={(e) => setName(e.target.value)}/>
                     <label htmlFor="email" className='text-[20px] font-semibold text-white mb-1'>Email Address</label>
-                    <input type="email" name="email" id="email" placeholder="you@example.com" className='mb-2 px-3 py-1 bg-white rounded-lg border-1 border-gray-300' required/>
+                    <input type="email" name="email" id="email" placeholder="you@example.com" className='mb-2 px-3 py-1 bg-white rounded-lg border-1 border-gray-300' required onChange={(e) => setEmail(e.target.value)}/>
                     <label htmlFor="message" className='mb-1  text-[20px] font-semibold text-white'>Message</label>
-                    <textarea name="message" id="message" placeholder="Write your message here..."className='px-3 py-2 bg-white rounded-md border-1 border-gray-300 min-h-[200px] max-h-[200px] mb-[20px]'></textarea>
+                    <textarea name="message" id="message" placeholder="Write your message here..."className='px-3 py-2 bg-white rounded-md border-1 border-gray-300 min-h-[200px] max-h-[200px] mb-[20px]' onChange={(e) => setComment(e.target.value)}></textarea>
                     <input type="submit" value="SUBMIT" className='rounded-full px-6 py-2 text-white border-2 border-white font-bold text-sm hover:text-[#0B1F3A] hover:border-white hover:bg-white ease-in-out duration-200 w-fit mx-auto cursor-pointer'/>
                 </form>
             </div>

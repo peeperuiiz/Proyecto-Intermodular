@@ -10,6 +10,9 @@ session_set_cookie_params([
 
 session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
@@ -92,6 +95,36 @@ function logOutUser(){
     $_SESSION = array();
 
     session_destroy();
+}
+
+function submitContactData(){
+    require_once('../vendor/autoload.php');
+
+    $mail = new PHPMailer(true);
+
+    try{
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.aeroelite.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'info@aeroelite.com';
+        $mail->Password   = '12345';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+
+        // Remitente y destinatario
+        $mail->setFrom('info@aeroelite.com', 'AeroElite S.L.');
+        $mail->addAddress($_POST['email']);
+
+        // Contenido
+        $mail->isHTML(true);
+        $mail->Subject = 'Confirmación de Contacto';
+        $mail->Body    = '<h1>Gracias por ponerte en contacto con nosotros</h1><p>Nos pondremos en contacto contigo a mayor brevedad posible</p>';
+        $mail->AltBody = 'Gracias por ponerte en contacto con nosotros. Nos pondremos en contacto contigo a mayor brevedad posible';
+
+        $mail->send();
+    }catch(Exception $e){
+        echo json_encode(['err' => $mail->ErrorInfo]);
+    }
 }
 
 ?>

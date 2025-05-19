@@ -97,34 +97,49 @@ function logOutUser(){
     session_destroy();
 }
 
-function submitContactData(){
-    require_once('../vendor/autoload.php');
 
-    $mail = new PHPMailer(true);
+// DESACTIVADO PORQUE EL CORREO NO EXISTE
 
-    try{
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.aeroelite.com';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'info@aeroelite.com';
-        $mail->Password   = '12345';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+// function submitContactData(){
+//     require_once('../vendor/autoload.php');
 
-        // Remitente y destinatario
-        $mail->setFrom('info@aeroelite.com', 'AeroElite S.L.');
-        $mail->addAddress($_POST['email']);
+//     $mail = new PHPMailer(true);
 
-        // Contenido
-        $mail->isHTML(true);
-        $mail->Subject = 'Confirmación de Contacto';
-        $mail->Body    = '<h1>Gracias por ponerte en contacto con nosotros</h1><p>Nos pondremos en contacto contigo a mayor brevedad posible</p>';
-        $mail->AltBody = 'Gracias por ponerte en contacto con nosotros. Nos pondremos en contacto contigo a mayor brevedad posible';
+//     try{
 
-        $mail->send();
-    }catch(Exception $e){
-        echo json_encode(['err' => $mail->ErrorInfo]);
-    }
+//         $mail->isSMTP();
+//         $mail->Host       = 'smtp.aeroelite.com';
+//         $mail->SMTPAuth   = true;
+//         $mail->Username   = 'info@aeroelite.com';
+//         $mail->Password   = '12345';
+//         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+//         $mail->Port       = 587;
+
+//         // Remitente y destinatario
+//         $mail->setFrom('info@aeroelite.com', 'AeroElite S.L.');
+//         $mail->addAddress($_POST['email']);
+
+//         // Contenido
+//         $mail->isHTML(true);
+//         $mail->Subject = 'Confirmación de Contacto';
+//         $mail->Body    = '<h1>Gracias por ponerte en contacto con nosotros</h1><p>Nos pondremos en contacto contigo a mayor brevedad posible</p>';
+//         $mail->AltBody = 'Gracias por ponerte en contacto con nosotros. Nos pondremos en contacto contigo a mayor brevedad posible';
+
+//         $mail->send();
+//     }catch(Exception $e){
+//         echo json_encode(['err' => $mail->ErrorInfo]);
+//     }
+// }
+
+function obtainFleet(){
+    require_once('../MODELOS/class.avion.php');
+
+    $hoy = date('Y/m/d');
+
+    $avion = new Avion();
+    $aviones = $avion->getFleet($hoy);
+
+    echo json_encode(['aviones' => $aviones]);
 }
 
 ?>

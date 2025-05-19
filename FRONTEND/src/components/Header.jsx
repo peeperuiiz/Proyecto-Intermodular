@@ -1,13 +1,11 @@
 import React from 'react'
 import '../App.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Header = ({type}) => {
-    const navigate = useNavigate();
-    
+const Header = ({type, user}) => {    
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleSubmitLogOut = (e) => {
@@ -32,17 +30,25 @@ const Header = ({type}) => {
                 <div className='w-[20%]'>
                     <img src={logo} alt="" className='w-[75px]'/>
                 </div>
-                <div className='hidden md:w-[300px] md:flex md:justify-center md:gap-15 md:text-cyan-200'>
+                <div className='hidden lg:w-[300px] lg:flex lg:justify-center lg:gap-15 lg:text-cyan-200'>
                     {
                     type.filter(item => item !== 'Log Out' && item !== 'Sign In').map((item, index) => {
                     
                         return (
-                            <Link key={index} to={item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`} className='hover:text-white duration-300 flex-1'>{item}</Link>
+                            <Link
+                                key={index}
+                                to={{pathname: item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`}}
+                                state={item !== 'Home' && item !== 'Contact' ? { tipo: user } : null}
+                                className="hover:text-white duration-300 flex-1"
+                            >
+                            {item}
+                            </Link>
                         )
                     
-                    })}
+                    })
+                    }
                 </div>
-                <div className='hidden md:block md:w-[20%] md:text-end md:text-cyan-200'>
+                <div className='hidden lg:block lg:w-[20%] lg:text-end lg:text-cyan-200'>
                     {
                     type.filter(item => item === 'Log Out' || item === 'Sign In').map((item, index) => {
                     
@@ -54,19 +60,26 @@ const Header = ({type}) => {
                     
                     })}
                 </div>
-                <div className="md:hidden">
+                <div className="lg:hidden">
                     <button onClick={() => setMenuOpen(!menuOpen)} className="text-cyan-200 cursor-pointer">
                     {menuOpen ? <X size={28} /> : <Menu size={28} />}
                     </button>
                 </div>
             </nav>
             {menuOpen && (
-                <div className="md:hidden px-6 pb-4 space-y-3 text-cyan-200 font-semibold text-lg">
+                <div className="lg:hidden px-6 pb-4 space-y-3 text-cyan-200 font-semibold text-lg">
                     {
                     type.map((item, index) => {
                     
                         return (
-                            <Link key={index} to={item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`} className='block hover:text-white duration-300 w-[15%]'>{item}</Link>
+                            <Link
+                                key={index}
+                                to={{pathname: item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`}}
+                                state={item !== 'Home' && item !== 'Contact' && item !== 'Sign In' && item !== 'Log Out' ? { tipo: user } : null}
+                                className="hover:text-white duration-300 flex-1"
+                            >
+                                {item}
+                            </Link>
                         )
                     
                     })}

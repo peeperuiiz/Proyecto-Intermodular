@@ -31,7 +31,7 @@ const Home = () => {
                             <div className="w-full lg:col-span-3 lg:row-span-2 lg:col-start-3 lg:row-start-3 bg-[url(/src/assets/home/grid4.jpeg)] bg-center bg-cover h-[250px]">
                             </div>
                         </div>
-                        <a href="" className='text-neutral-900 py-3 px-5 border-2 border-neutral-900 rounded-[8px] font-semibold hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200'>See More</a>                    
+                        <a href="" className='text-[#0B1F3A] py-3 px-5 border-2 border-[#0B1F3A] rounded-[8px] font-semibold hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200'>See More</a>                    
                     </div>
                 </div>
             </section>
@@ -55,7 +55,7 @@ const Home = () => {
             <section>
                 <div className='m-auto text-center my-[50px]'>
                     <h2 className='text-neutral-900 text-[45px] font-semibold mb-10 text-[#0B1F3A]'>Fly wherever you want, whenever you want.</h2>
-                    <a href="" className='text-neutral-900 py-3 px-5 border-2 border-neutral-900 rounded-[8px] font-semibold hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200'>Book your jet</a>
+                    <a href="" className='text-[#0B1F3A] py-3 px-5 border-2 border-[#0B1F3A] rounded-[8px] font-semibold hover:text-white hover:border-[#0B1F3A] hover:bg-[#0B1F3A] ease-in-out duration-200'>Book your jet</a>
                 </div>
             </section>
         </main>

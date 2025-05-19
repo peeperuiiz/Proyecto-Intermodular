@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 
 const MainLayout = () => {
 
+    const [links, setLinks] = useState();
     const [typeUser, setTypeUser] = useState();
     
     useEffect(() => {
@@ -32,7 +33,8 @@ const MainLayout = () => {
         break;
         }
 
-        setTypeUser(options);
+        setLinks(options);
+        setTypeUser(data.type);
     })
     }, [])
 
@@ -40,7 +42,7 @@ const MainLayout = () => {
 
   return (
     <>
-        <Header type = {typeUser}/>
+        <Header type = {links} user={typeUser}/>
             <Outlet/>
         <Footer/>
     </>

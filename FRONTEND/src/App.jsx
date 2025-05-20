@@ -7,6 +7,7 @@ import SignLayout from './layout/SignLayout';
 import Contact from './pages/Contact';
 import Fleet from './pages/Fleet';
 import NotFound from './pages/NotFound';
+import Book from './pages/Book';
 
 function App() {
 
@@ -17,8 +18,9 @@ function App() {
           <Route path='/' element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path='/contact' element={<Contact />} />
-            <Route path='/fleet' element={<Fleet />}/>
-            <Route path='/notfound' element={<NotFound />}/>
+            <Route path='/fleet' element={<Fleet />} />
+            <Route path='/book' element={<Book />} />
+            <Route path='/notfound' element={<NotFound />} />
           </Route>
           <Route path='/signin' element={<SignLayout />}>
             <Route index element={<SignIn />} />

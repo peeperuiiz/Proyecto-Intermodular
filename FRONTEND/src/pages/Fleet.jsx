@@ -28,7 +28,7 @@ const Fleet = () => {
     <>
     
     <main>
-        <h2 className='text-[45px] text-[#0B1F3A] font-semibold w-[80%] mx-auto py-[35px]'>Our Fleet</h2>
+        <h2 className='text-5xl text-[#0B1F3A] font-bold text-center my-12'>Our Fleet</h2>
         <div className='w-[80%] flex flex-wrap mx-auto justify-center gap-5'>
             {
             aviones.map((item, index) => {

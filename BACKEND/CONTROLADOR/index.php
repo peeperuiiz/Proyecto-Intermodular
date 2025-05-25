@@ -142,4 +142,13 @@ function obtainFleet(){
     echo json_encode(['aviones' => $aviones]);
 }
 
+function obtainMemberships(){
+    require_once('../MODELOS/class.membership.php');
+
+    $membership = new Membership();
+    $membresias = $membership->getMemberships();
+
+    echo json_encode(['memberships' => $membresias]);
+}
+
 ?>

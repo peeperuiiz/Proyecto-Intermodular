@@ -26,8 +26,8 @@ const Contact = () => {
     <>
 
     <main>
-        <h2 className='text-[45px] font-bold text-center mx-auto pt-[100px] text-[#0B1F3A] text'>Contact Us</h2>
-        <section className='flex flex-col lg:flex-row justify-center items-center w-[90%] lg:w-[70%] mx-auto my-[100px] gap-10'>
+        <h2 className='text-5xl text-[#0B1F3A] font-bold text-center my-12'>Contact Us</h2>
+        <section className='flex flex-col lg:flex-row justify-center items-center w-[90%] lg:w-[70%] mx-auto mb-12 gap-10'>
             <div className='text-justify lg:text-left w-full lg:w-[40%]'>
                 <h3 className='text-[35px] font-semibold py-[25px] text-[#0B1F3A]'>How can we <span className='text-cyan-700'>help</span> you?</h3>
                 <p className='text-[20px] text-[#0B1F3A] pb-[20px]'>At our company, we believe that exceptional customer service is the foundation of lasting relationships. We’re committed to listening with empathy, responding with care, and delivering solutions that truly make a difference. Whether you have a question, concern, or idea, our team is here to support you with integrity, respect, and a genuine desire to help. Your satisfaction is not just our priority — it's part of our values. <br /><br /> If you want to contact us directly: <br />&#10242;info@aeroelite.com <br />	&#10242;+1 (234) 567-890</p>

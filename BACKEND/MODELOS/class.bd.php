@@ -1,7 +1,6 @@
 <?php
 
 class bd{
-    // VARIABLES
     private $con;
 
     //CONSTRUCTOR
@@ -11,7 +10,7 @@ class bd{
         $this->con = new mysqli('localhost', USU_CON, PSW_CON, 'aeroelite');
     }
 
-    //FUNCIONES
+    //FUNCTIONS
     public function getConexion(){
         return $this->con;
     }

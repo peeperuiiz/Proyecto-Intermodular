@@ -30,7 +30,10 @@ if(isset($_REQUEST['action'])){
 }
 
 function getTypeUser(){
-    echo json_encode(['type' => $_SESSION['type'] ?? 'G']);
+    echo json_encode([
+        'type' => $_SESSION['type'] ?? 'G',
+        'member' => $_SESSION['member']
+    ]);
 }
 
 function signInNewUser(){
@@ -47,10 +50,12 @@ function signInNewUser(){
 
         $info = $user->getUser($_SESSION['nom_usu']);
         $_SESSION['type'] = $info[0][7] ?? 'G';
+        $_SESSION['member'] = $info[0][6];
 
         echo json_encode([
             'nom' => $_SESSION['nom_usu'],
-            'type' => $_SESSION['type']
+            'type' => $_SESSION['type'],
+            'member' => $_SESSION['member']
         ]);
 
         if($_POST['check'] === 1){
@@ -77,10 +82,12 @@ function logInUser(){
 
         $info = $user->getUser($_SESSION['nom_usu']);
         $_SESSION['type'] = $info[0][7] ?? 'G';
+        $_SESSION['member'] = $info[0][6];
 
         echo json_encode([
             'nom' => $_SESSION['nom_usu'],
-            'type' => $_SESSION['type']
+            'type' => $_SESSION['type'],
+            'member' => $_SESSION['member']
         ]);
 
         if($_POST['check'] === 1){

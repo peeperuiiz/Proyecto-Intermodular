@@ -7,6 +7,7 @@ const MainLayout = () => {
 
     const [links, setLinks] = useState();
     const [typeUser, setTypeUser] = useState();
+    const [membership, setMembership] = useState('');
     
     useEffect(() => {
     fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=getTypeUser', {
@@ -15,8 +16,6 @@ const MainLayout = () => {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Data from API:', data);
-
         let options;
 
         switch (data.type) {
@@ -35,15 +34,17 @@ const MainLayout = () => {
 
         setLinks(options);
         setTypeUser(data.type);
+        setMembership(data.member);
     })
     }, [])
 
-    while(!typeUser) return <div className="text-center text-gray-600 mt-10">Loading...</div>;
+    if (!typeUser) return <div className="text-center text-gray-600 mt-10">Loading...</div>;
+
 
   return (
     <>
         <div className='min-h-screen flex flex-col'>
-            <Header type = {links} user={typeUser}/>
+            <Header type = {links} user={typeUser} member={membership}/>
                 <Outlet/>
             <Footer/>
         </div>

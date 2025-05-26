@@ -74,6 +74,7 @@ const Book = () => {
         const lon1 = aeropuertoSalida.lon;
         const lat2 = aeropuertoLlegada.lat;
         const lon2 = aeropuertoLlegada.lon;
+        
 
         const toRad = (value) => value * Math.PI / 180;
         const R = 6371;
@@ -83,22 +84,17 @@ const Book = () => {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const distancia = R * c;
 
-        const formData = {
-            plane,
-            salida,
-            llegada,
-            fecha,
-            distancia: distancia.toFixed(2),
-            tipo
-        };
+        const formData = new FormData();
+        formData.append('plane', plane);
+        formData.append('salida', salida);
+        formData.append('llegada', llegada);
+        formData.append('fecha', fecha);
+        formData.append('distancia', distancia.toFixed(2));
 
         fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=bookFlight', {
             method: 'POST',
+            body: formData,
             credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
         })
         .then(res => {
             return res.json();
@@ -236,4 +232,4 @@ const Book = () => {
     );
 };
 
-export default Book;
+export default Book

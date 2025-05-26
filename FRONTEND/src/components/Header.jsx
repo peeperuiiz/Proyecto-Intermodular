@@ -5,7 +5,7 @@ import logo from '../assets/logo.png';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Header = ({type, user}) => {    
+const Header = ({type, user, member}) => {    
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleSubmitLogOut = (e) => {
@@ -38,7 +38,13 @@ const Header = ({type, user}) => {
                             <Link
                                 key={index}
                                 to={{pathname: item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`}}
-                                state={item !== 'Home' && item !== 'Contact' ? { tipo: user } : null}
+                                state={
+                                    item === 'Book'
+                                        ? { tipo: user , membership: member }
+                                        : item !== 'Home' && item !== 'Contact' 
+                                            ? { tipo: user } 
+                                            : null
+                                }
                                 className="hover:text-white duration-300 flex-1"
                             >
                             {item}
@@ -67,7 +73,7 @@ const Header = ({type, user}) => {
                 </div>
             </nav>
             {menuOpen && (
-                <div className="lg:hidden px-6 pb-4 space-y-3 text-cyan-200 font-semibold text-lg">
+                <div className="lg:hidden flex flex-col px-6 pb-4 space-y-3 text-cyan-200 font-semibold text-lg">
                     {
                     type.map((item, index) => {
                     
@@ -75,7 +81,12 @@ const Header = ({type, user}) => {
                             <Link
                                 key={index}
                                 to={{pathname: item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`}}
-                                state={item !== 'Home' && item !== 'Contact' && item !== 'Sign In' && item !== 'Log Out' ? { tipo: user } : null}
+                                state={
+                                    item === 'Book'
+                                        ? { tipo: user , membership: member }
+                                        : item !== 'Home' && item !== 'Contact' && item !== 'Sign In' && item !== 'Log Out'
+                                            ? { tipo: user } 
+                                            : null}
                                 className="hover:text-white duration-300 flex-1"
                             >
                                 {item}

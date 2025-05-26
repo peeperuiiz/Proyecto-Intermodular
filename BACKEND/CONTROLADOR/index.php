@@ -151,4 +151,11 @@ function obtainMemberships(){
     echo json_encode(['memberships' => $membresias]);
 }
 
+function updateMembership(){
+    require_once('../MODELOS/class.user.php');
+
+    $user = new User();
+    $_SESSION['membership'] = $user->updateMemberships($_POST['membership'], $_SESSION['nom_usu']);
+}
+
 ?>

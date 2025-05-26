@@ -102,6 +102,39 @@ class User{
             }
         }
     }
+
+    public function updateMemberships($nom, $nom_usu){
+        $sentencia = 'select id from membresias where nombre = ?';
+
+        $consulta = $this->con->prepare($sentencia);
+        $consulta->bind_param('s', $nom);
+        $consulta->bind_result($id);
+        $consulta->execute();
+
+        if(!$consulta->fetch()){
+            $consulta->close();
+
+            return false;
+        }else{
+            $consulta->close();
+
+            $sentencia = 'update usuarios set membresia = ? where nom_usu = ?';
+
+            $consulta = $this->con->prepare($sentencia);
+            $consulta->bind_param('is', $id, $nom_usu);
+            $consulta->execute();
+
+            if($consulta->affected_rows > 0){
+                $consulta->close();
+
+                return true;
+            }else{
+                $consulta->close();
+
+                return false;
+            }
+        }
+    }
 }
 
 ?>

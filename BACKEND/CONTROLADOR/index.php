@@ -32,7 +32,6 @@ if(isset($_REQUEST['action'])){
 function getTypeUser(){
     echo json_encode([
         'type' => $_SESSION['type'] ?? 'G',
-        'member' => $_SESSION['member']
     ]);
 }
 
@@ -50,12 +49,10 @@ function signInNewUser(){
 
         $info = $user->getUser($_SESSION['nom_usu']);
         $_SESSION['type'] = $info[0][7] ?? 'G';
-        $_SESSION['member'] = $info[0][6];
 
         echo json_encode([
             'nom' => $_SESSION['nom_usu'],
-            'type' => $_SESSION['type'],
-            'member' => $_SESSION['member']
+            'type' => $_SESSION['type']
         ]);
 
         if($_POST['check'] === 1){
@@ -82,12 +79,10 @@ function logInUser(){
 
         $info = $user->getUser($_SESSION['nom_usu']);
         $_SESSION['type'] = $info[0][7] ?? 'G';
-        $_SESSION['member'] = $info[0][6];
 
         echo json_encode([
             'nom' => $_SESSION['nom_usu'],
-            'type' => $_SESSION['type'],
-            'member' => $_SESSION['member']
+            'type' => $_SESSION['type']
         ]);
 
         if($_POST['check'] === 1){
@@ -162,7 +157,16 @@ function updateMembership(){
     require_once('../MODELOS/class.user.php');
 
     $user = new User();
-    $_SESSION['membership'] = $user->updateMemberships($_POST['membership'], $_SESSION['nom_usu']);
+    $user->updateMemberships($_POST['membership'], $_SESSION['nom_usu']);
+}
+
+function getMembershipForBooking(){
+    require_once('../MODELOS/class.user.php');
+
+    $user = new User();
+    $member = $user->getMembership($_SESSION['nom_usu']);
+
+    echo json_encode(['membership' => $member]);
 }
 
 ?>

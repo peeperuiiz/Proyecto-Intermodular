@@ -135,6 +135,21 @@ class User{
             }
         }
     }
+
+    public function getMembership($nom_usu){
+        $sentencia = 'select membresia from usuarios where nom_usu = ?';
+
+        $consulta = $this->con->prepare($sentencia);
+        $consulta->bind_param('s', $nom_usu);
+        $consulta->bind_result($member);
+        $consulta->execute();
+
+        if($consulta->fetch()){
+            return $member;
+        }else{
+            return false;
+        }
+    }
 }
 
 ?>

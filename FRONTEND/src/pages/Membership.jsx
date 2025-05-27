@@ -84,42 +84,44 @@ const Membership = () => {
                         }
                     </div>
 
-                    {isVisible && (
-                        <div className='w-[550px] flex flex-col justify-center items-center mx-auto mt-20 mb-12 border-2 border-[#0B1F3A] rounded-lg p-5'>
-                            <h4 className='text-2xl font-bold text-center mb-3'>You selected: {selectedName}</h4>
-                            <form onSubmit={handlePayment} className='w-full flex flex-col gap-5'>
-                                <div>
-                                    <label className='font-semibold'>Credit Card Number</label>
-                                    <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-full' required/>
-                                </div>
-                                <div className='flex items-center justify-between'>
-                                    <div className='flex items-center gap-5'>
-                                        <label className='font-semibold'>Validity date</label>
-                                        <div className='flex items-center'>
-                                            <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
-                                            <p className='font-semibold'>/</p>
-                                            <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
+                    {
+                        isVisible && (
+                            <div className='w-[550px] flex flex-col justify-center items-center mx-auto mt-20 mb-12 border-2 border-[#0B1F3A] rounded-lg p-5'>
+                                <h4 className='text-2xl font-bold text-center mb-3'>You selected: {selectedName}</h4>
+                                <form onSubmit={handlePayment} className='w-full flex flex-col gap-5'>
+                                    <div>
+                                        <label className='font-semibold'>Credit Card Number</label>
+                                        <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-full' required/>
+                                    </div>
+                                    <div className='flex items-center justify-between'>
+                                        <div className='flex items-center gap-5'>
+                                            <label className='font-semibold'>Validity date</label>
+                                            <div className='flex items-center'>
+                                                <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
+                                                <p className='font-semibold'>/</p>
+                                                <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
+                                            </div>
+                                        </div>
+                                        <div className='flex items-center gap-5'>
+                                            <label className='font-semibold'>CVC</label>
+                                            <input type="number" className='rounded-md px-4 py-2 bg-gray-200' required/>
                                         </div>
                                     </div>
-                                    <div className='flex items-center gap-5'>
-                                        <label className='font-semibold'>CVC</label>
-                                        <input type="number" className='rounded-md px-4 py-2 bg-gray-200' required/>
-                                    </div>
-                                </div>
-                                <input
-                                    type="submit"
-                                    className='rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] font-bold text-sm hover:text-white hover:bg-[#0B1F3A] ease-in-out duration-200 mx-auto cursor-pointer'
-                                    value={`Pay $${selectedPrice}`}
-                                />
-                            </form>
-                            <button
-                                onClick={handleClose}
-                                className='rounded-full px-6 py-2 mt-5 text-sm border-2 border-red-700 font-bold text-red-700 font-semibold hover:bg-red-700 hover:text-white duration-200 ease-in-out cursor-pointer'
-                            >
-                                CLOSE
-                            </button>
-                        </div>
-                    )}
+                                    <input
+                                        type="submit"
+                                        className='rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] font-bold text-sm hover:text-white hover:bg-[#0B1F3A] ease-in-out duration-200 mx-auto cursor-pointer'
+                                        value={`Pay $${selectedPrice}`}
+                                    />
+                                </form>
+                                <button
+                                    onClick={handleClose}
+                                    className='rounded-full px-6 py-2 mt-5 text-sm border-2 border-red-700 font-bold text-red-700 font-semibold hover:bg-red-700 hover:text-white duration-200 ease-in-out cursor-pointer'
+                                >
+                                    CLOSE
+                                </button>
+                            </div>
+                        )
+                    }
                 </div>
             </section>
         </main>

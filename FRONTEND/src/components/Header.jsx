@@ -5,7 +5,7 @@ import logo from '../assets/logo.png';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Header = ({type, user, member}) => {    
+const Header = ({type, user}) => {    
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleSubmitLogOut = (e) => {
@@ -39,11 +39,9 @@ const Header = ({type, user, member}) => {
                                 key={index}
                                 to={{pathname: item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`}}
                                 state={
-                                    item === 'Book'
-                                        ? { tipo: user , membership: member }
-                                        : item !== 'Home' && item !== 'Contact' 
-                                            ? { tipo: user } 
-                                            : null
+                                    item !== 'Home' && item !== 'Contact' 
+                                        ? { tipo: user } 
+                                        : null
                                 }
                                 className="hover:text-white duration-300 flex-1"
                             >
@@ -82,11 +80,9 @@ const Header = ({type, user, member}) => {
                                 key={index}
                                 to={{pathname: item === 'Home' ? '/' : `/${item.toLowerCase().replace(/\s+/g, '')}`}}
                                 state={
-                                    item === 'Book'
-                                        ? { tipo: user , membership: member }
-                                        : item !== 'Home' && item !== 'Contact' && item !== 'Sign In' && item !== 'Log Out'
-                                            ? { tipo: user } 
-                                            : null}
+                                    item !== 'Home' && item !== 'Contact' && item !== 'Sign In' && item !== 'Log Out'
+                                        ? { tipo: user } 
+                                        : null}
                                 className="hover:text-white duration-300 flex-1"
                             >
                                 {item}

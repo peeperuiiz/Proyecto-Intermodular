@@ -4,14 +4,22 @@ import { Navigate, useLocation } from 'react-router-dom';
 const Book = () => {
     const location = useLocation();
     const tipo = location.state?.tipo;
+    const [membership, setMembership] = useState('');
     const [aviones, setAviones] = useState([]);
     const [plane, setPlane] = useState('');
+    const [selectedPlane, setSelectedPlane] = useState(null);
     const [aeropuertos, setAeropuertos] = useState([]);
     const [salida, setSalida] = useState('');
     const [sugerenciasSalida, setSugerenciasSalida] = useState([]);
     const [llegada, setLlegada] = useState('');
     const [sugerenciasLlegada, setSugerenciasLlegada] = useState([]);
     const [fecha, setFecha] = useState('');
+    const [puedeReservar, setPuedeReservar] = useState(false);
+    const [isVisible, setVisible] = useState(false);
+    const [distancia, setDistancia] = useState(null);
+    const [duracion, setDuracion] = useState(null);
+    const [escalas, setEscalas] = useState(null);
+    const [precioTotal, setPrecioTotal] = useState(null);
 
     if (tipo !== 'R' && tipo !== 'A') {
         return (<Navigate to='/notfound' replace />);
@@ -24,85 +32,157 @@ const Book = () => {
         })
         .then(res => res.json())
         .then(data => {
-            setAviones(data.aviones);
-        });
-    }, []);
+            const ordenados = data.aviones.sort((a, b) =>
+                (a.marca + a.modelo).localeCompare(b.marca + b.modelo)
+            )
+            setAviones(ordenados);
+        })
+    }, [])
 
     useEffect(() => {
         fetch('/airports.json')
         .then(res => res.json())
         .then(data => {
-            const listaAeropuertos = Object.values(data);
-            setAeropuertos(listaAeropuertos);
-        });
-    }, []);
+            setAeropuertos(Object.values(data));
+        })
+    }, [])
 
     useEffect(() => {
-        if (salida.length < 2) {
-            setSugerenciasSalida([]);
-            return;
+        const filtro = (input, lista, setter) => {
+            if (input.length < 2) return setter([]);
+            const res = lista.filter(a =>
+                (a.name?.toLowerCase().includes(input.toLowerCase()) ||
+                a.icao?.toLowerCase().includes(input.toLowerCase()) ||
+                a.iata?.toLowerCase().includes(input.toLowerCase()))
+            )
+            setter(res.slice(0, 3));
         }
 
-        const filtrados = aeropuertos.filter(a =>
-            (a.name?.toLowerCase().includes(salida.toLowerCase()) ||
-            a.icao?.toLowerCase().includes(salida.toLowerCase()) ||
-            a.iata?.toLowerCase().includes(salida.toLowerCase()))
-        );
-        setSugerenciasSalida(filtrados.slice(0, 3));
-    }, [salida, aeropuertos]);
+        filtro(salida, aeropuertos, setSugerenciasSalida);
+    }, [salida, aeropuertos])
 
     useEffect(() => {
-        if (llegada.length < 2) {
-            setSugerenciasLlegada([]);
-            return;
+        const filtro = (input, lista, setter) => {
+            if (input.length < 2) return setter([]);
+            const res = lista.filter(a =>
+                (a.name?.toLowerCase().includes(input.toLowerCase()) ||
+                a.icao?.toLowerCase().includes(input.toLowerCase()) ||
+                a.iata?.toLowerCase().includes(input.toLowerCase()))
+            )
+            setter(res.slice(0, 3));
         }
 
-        const filtrados = aeropuertos.filter(a =>
-            (a.name?.toLowerCase().includes(llegada.toLowerCase()) ||
-            a.icao?.toLowerCase().includes(llegada.toLowerCase()) ||
-            a.iata?.toLowerCase().includes(llegada.toLowerCase()))
-        );
-        setSugerenciasLlegada(filtrados.slice(0, 3));
-    }, [llegada, aeropuertos]);
+        filtro(llegada, aeropuertos, setSugerenciasLlegada);
+    }, [llegada, aeropuertos])
 
-    const handleSubmitBooking = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=getMembershipForBooking', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => setMembership(data.membership))
+    }, [])
 
+    useEffect(() => {
         const aeropuertoSalida = aeropuertos.find(a => salida.includes(a.iata || a.icao));
         const aeropuertoLlegada = aeropuertos.find(a => llegada.includes(a.iata || a.icao));
-        const lat1 = aeropuertoSalida.lat;
-        const lon1 = aeropuertoSalida.lon;
-        const lat2 = aeropuertoLlegada.lat;
-        const lon2 = aeropuertoLlegada.lon;
-        
+        if (!aeropuertoSalida || !aeropuertoLlegada) return;
 
+        const continent1 = aeropuertoSalida.tz.split('/')[0];
+        const continent2 = aeropuertoLlegada.tz.split('/')[0];
+
+        if (membership == 2 && aeropuertoSalida.country === aeropuertoLlegada.country) {
+            setPuedeReservar(true);
+        } else if (membership == 3 && continent1 === continent2) {
+            setPuedeReservar(true);
+        } else if (membership == 4) {
+            setPuedeReservar(true);
+        } else {
+            setPuedeReservar(false);
+        }
+    }, [salida, llegada, aeropuertos, membership])
+
+    const calcularDistancia = (lat1, lon1, lat2, lon2) => {
         const toRad = (value) => value * Math.PI / 180;
         const R = 6371;
         const dLat = toRad(lat2 - lat1);
         const dLon = toRad(lon2 - lon1);
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const a = Math.sin(dLat / 2) ** 2 +
+                  Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                  Math.sin(dLon / 2) ** 2;
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const distancia = R * c;
+        return R * c;
+    }
+
+    const calcularPrecioHora = (rango_max) => {
+        if (rango_max < 2500) return 1200;
+        if (rango_max <= 5000) return 2100;
+        if (rango_max <= 7000) return 3500;
+        return 5000;
+    }
+
+    const calcularCostoEscalas = (rango_max, escalas) => {
+        let extra = 0;
+        if (rango_max < 2500) extra = 5000;
+        else if (rango_max <= 5000) extra = 10000;
+        else if (rango_max <= 7000) extra = 15000;
+        else extra = 20000;
+        return escalas * extra;
+    }
+
+    const calcularItinerario = () => {
+        const aeropuertoSalida = aeropuertos.find(a => salida.includes(a.iata || a.icao));
+        const aeropuertoLlegada = aeropuertos.find(a => llegada.includes(a.iata || a.icao));
+        const avion = aviones.find(a => a.matricula === plane);
+
+        if (!aeropuertoSalida || !aeropuertoLlegada || !avion) return;
+
+        if ((aeropuertoSalida.iata || aeropuertoSalida.icao) === (aeropuertoLlegada.iata || aeropuertoLlegada.icao)) {
+            alert('Departure and arrival airports cannot be the same.');
+            setVisible(false);
+            return;
+        }
+
+        const dist = calcularDistancia(aeropuertoSalida.lat, aeropuertoSalida.lon, aeropuertoLlegada.lat, aeropuertoLlegada.lon);
+        const horas = dist / 900;
+        const escalas = Math.floor(dist / avion.rango_max);
+        const precioHora = calcularPrecioHora(avion.rango_max);
+        const precioEscalas = calcularCostoEscalas(avion.rango_max, escalas);
+
+        let precio = Math.ceil(horas) * precioHora + precioEscalas;
+
+        if (puedeReservar) {
+            precio = 0;
+        }
+
+        setDistancia(dist.toFixed(2));
+        setDuracion(horas.toFixed(2));
+        setEscalas(escalas);
+        setPrecioTotal(precio);
+        setSelectedPlane(avion);
+        setVisible(true);
+    }
+
+    const handleSubmitBooking = (e) => {
+        e.preventDefault();
+        if (!distancia || !selectedPlane) return;
 
         const formData = new FormData();
         formData.append('plane', plane);
         formData.append('salida', salida);
         formData.append('llegada', llegada);
         formData.append('fecha', fecha);
-        formData.append('distancia', distancia.toFixed(2));
+        formData.append('distancia', distancia);
 
         fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=bookFlight', {
             method: 'POST',
             body: formData,
             credentials: 'include',
         })
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            alert('Reserva realizada correctamente');
-        })
-    };
+        .then(res => res.json())
+        .then(() => alert('Reserva realizada correctamente'));
+    }
 
     return (
         <>
@@ -112,7 +192,17 @@ const Book = () => {
                     <form className='mb-6' onSubmit={handleSubmitBooking}>
                         <div className='flex gap-5 items-center'>
                             <label htmlFor="jet" className='w-1/6 font-semibold'>Choose your Jet:</label>
-                            <select name="jet" id="jet" className='rounded-md px-4 py-2 bg-gray-200 w-5/6' onChange={e => setPlane(e.target.value)}>
+                            <select
+                                name="jet"
+                                id="jet"
+                                className='rounded-md px-4 py-2 bg-gray-200 w-5/6'
+                                onChange={e => {
+                                    setPlane(e.target.value);
+                                    calcularItinerario();
+                                }}
+                                required
+                            >
+                                <option value="">-- Select --</option>
                                 {aviones.map((item, index) => (
                                     <option key={index} value={item.matricula}>
                                         {item.marca} {item.modelo}
@@ -218,18 +308,82 @@ const Book = () => {
                             />
                         </div>
 
+                        {
+                            !puedeReservar ? (
+                                <p className='text-red-700 text-center font-semibold my-4'>Your book does not match with your membership</p>
+                            ) : (
+                                <p className='text-green-600 text-center font-semibold my-4'>Your book matches your membership</p>
+                            )
+                        }
+
                         <div className='text-center mt-6'>
-                            <input
-                                type="submit"
-                                value="SUBMIT"
+                            <button
+                                type="button"
                                 className='rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] font-bold text-sm hover:text-white hover:bg-[#0B1F3A] ease-in-out duration-200 mx-auto cursor-pointer'
-                            />
+                                onClick={() => {
+                                    if (salida && llegada && fecha && plane) {
+                                        calcularItinerario();
+                                        setVisible(true);
+                                    } else {
+                                        alert('Complete all fields to calculate itinerary and proceed.');
+                                    }
+                                }}
+                            >
+                                BOOK
+                            </button>
                         </div>
+
+                        {isVisible && (
+                            <div className='w-[550px] flex flex-col justify-center items-center mx-auto mt-20 mb-12 border-2 border-[#0B1F3A] rounded-lg p-5'>
+                                <h4 className='text-2xl font-bold text-center mb-4'>Itinerary Summary</h4>
+                                <ul className='mb-6 text-left'>
+                                    <li><strong>Distance:</strong> {distancia} km</li>
+                                    <li><strong>Duration:</strong> {duracion} hours</li>
+                                    <li><strong>Stops:</strong> {escalas}</li>
+                                    <li><strong>Total Price:</strong> €{precioTotal}</li>
+                                </ul>
+                                {precioTotal > 0 &&(
+                                    <div className='w-full flex flex-col gap-5'>
+                                        <div>
+                                            <label className='font-semibold'>Credit Card Number</label>
+                                            <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-full' required/>
+                                        </div>
+                                        <div className='flex items-center justify-between'>
+                                            <div className='flex items-center gap-5'>
+                                                <label className='font-semibold'>Validity date</label>
+                                                <div className='flex items-center'>
+                                                    <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
+                                                    <p className='font-semibold'>/</p>
+                                                    <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
+                                                </div>
+                                            </div>
+                                            <div className='flex items-center gap-5'>
+                                                <label className='font-semibold'>CVC</label>
+                                                <input type="number" className='rounded-md px-4 py-2 bg-gray-200' required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                <input
+                                    type="submit"
+                                    className='rounded-full px-6 py-2 mt-5 text-[#0B1F3A] border-2 border-[#0B1F3A] font-bold text-sm hover:text-white hover:bg-[#0B1F3A] ease-in-out duration-200 mx-auto cursor-pointer'
+                                    value='SUBMIT'
+                                />
+
+                                <button
+                                    onClick={() => setVisible(false)}
+                                    className='rounded-full px-6 py-2 mt-5 text-sm border-2 border-red-700 font-bold text-red-700 hover:bg-red-700 hover:text-white duration-200 ease-in-out cursor-pointer'
+                                >
+                                    CLOSE
+                                </button>
+                            </div>
+                        )}
                     </form>
                 </div>
             </main>
         </>
-    );
-};
+    )
+}
 
-export default Book
+export default Book;

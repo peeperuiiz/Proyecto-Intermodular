@@ -181,4 +181,27 @@ function bookFlight(){
 
     echo json_encode(['res' => $res]);
 }
+
+function dataDashboard(){
+    require_once('../MODELOS/class.viaje.php');
+    require_once('../MODELOS/class.user.php');
+
+    $user = new User();
+    $data = $user->getUser($_SESSION['nom_usu']);
+
+    $viaje = new Viaje();
+    $viajes = $viaje->getViajesByUser($_SESSION['nom_usu']);
+
+    echo json_encode([
+        'dni' => $data[0][0],
+        'nom' => $data[0][1],
+        'ape' => $data[0][2],
+        'email' => $data[0][3],
+        'nom_u' => $data[0][4],
+        'h_vuelo' => $data[0][5],
+        'member' => $data[0][6],
+        'viajes' => $viajes
+    ]);
+}
+
 ?>

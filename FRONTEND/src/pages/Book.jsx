@@ -199,8 +199,8 @@ const Book = () => {
 
     return (
         <>
-            <main className='flex-1 flex items-center'>
-                <div className="w-[1000px] mx-auto p-6 space-y-8 text-[#0B1F3A]">
+            <main className='flex-1 flex justify-center items-center'>
+                <div className="w-[1000px] p-6 space-y-8 text-[#0B1F3A]">
                     <h2 className="text-5xl font-bold text-center mt-6 mb-12">Book Your Private Jet</h2>
                     <form className='mb-6' onSubmit={handleSubmitBooking}>
                         <div className='flex gap-5 items-center'>

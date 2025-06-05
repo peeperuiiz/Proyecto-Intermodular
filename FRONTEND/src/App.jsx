@@ -9,6 +9,7 @@ import Fleet from './pages/Fleet';
 import NotFound from './pages/NotFound';
 import Book from './pages/Book';
 import Membership from './pages/Membership';
+import Dashboard from './pages/Dashboard';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
             <Route path='/fleet' element={<Fleet />} />
             <Route path='/book' element={<Book />} />
             <Route path='/membership' element={<Membership />} />
+            <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/notfound' element={<NotFound />} />
           </Route>
           <Route path='/signin' element={<SignLayout />}>

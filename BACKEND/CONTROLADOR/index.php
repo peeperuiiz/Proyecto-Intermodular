@@ -169,4 +169,16 @@ function getMembershipForBooking(){
     echo json_encode(['membership' => $member]);
 }
 
+function bookFlight(){
+    require_once('../MODELOS/class.viaje.php');
+    require_once('../MODELOS/class.user.php');
+
+    $user = new User();
+    $data = $user->getUser($_SESSION['nom_usu']);
+
+    $viaje = new Viaje();
+    $res = $viaje->insertViaje($data[0][0], $_POST['plane'], $_POST['fecha'], $_POST['salida'], $_POST['llegada'], $_POST['distancia'], $_POST['duracion'], $_POST['precio']);
+
+    echo json_encode(['res' => $res]);
+}
 ?>

@@ -29,7 +29,7 @@ const Signin = () => {
         formData.append('pss', pssSI);
         formData.append('check', checkSI ? 1 : 0);
 
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=signInNewUser', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=signInNewUser', {
             method: 'POST',
             body: formData,
             credentials: 'include'
@@ -52,7 +52,7 @@ const Signin = () => {
         formData.append('pss', pssLI);
         formData.append('check', checkLI ? 1 : 0);
 
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=logInUser', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=logInUser', {
             method: 'POST',
             body: formData,
             credentials: 'include'

@@ -16,7 +16,7 @@ class Avion{
 
         $consulta = $this->con->prepare($sentencia);
         $consulta->bind_param('s', $hoy);
-        $consulta->bind_result($matricula, $marca, $modelo, $rango_max, $rango_min, $img);
+        $consulta->bind_result($matricula, $marca, $modelo, $rango_max, $ruta);
         $consulta->execute();
 
         $resultado = $consulta->get_result();

@@ -15,7 +15,7 @@ const Membership = () => {
     }
 
     useEffect(() => {
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=obtainMemberships', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=obtainMemberships', {
             method: 'POST',
             credentials: 'include'
         })
@@ -43,7 +43,7 @@ const Membership = () => {
         const formData = new FormData();
         formData.append('membership', selectedName);
 
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=updateMembership', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=updateMembership', {
             method: 'POST',
             body: formData,
             credentials: 'include'

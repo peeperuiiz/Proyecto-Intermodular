@@ -13,7 +13,7 @@ const Contact = () => {
         formData.append('email', email);
         formData.append('comment', comment);
 
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=submitContactData', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=submitContactData', {
             method: 'POST',
             body: formData,
             credentials: 'include'

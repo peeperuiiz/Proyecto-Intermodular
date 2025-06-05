@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 const Fleet = () => {
@@ -8,7 +8,7 @@ const Fleet = () => {
     const tipo = location.state?.tipo;
 
     useEffect(() => {
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=obtainFleet', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=obtainFleet', {
         method: 'POST',
         credentials: 'include'
         })

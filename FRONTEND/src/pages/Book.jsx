@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const Book = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const tipo = location.state?.tipo;
     const [membership, setMembership] = useState('');
@@ -26,7 +27,7 @@ const Book = () => {
     }
 
     useEffect(() => {
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=obtainFleet', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=obtainFleet', {
             method: 'POST',
             credentials: 'include'
         })
@@ -76,7 +77,7 @@ const Book = () => {
     }, [llegada, aeropuertos])
 
     useEffect(() => {
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=getMembershipForBooking', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=getMembershipForBooking', {
             method: 'POST',
             credentials: 'include'
         })
@@ -164,6 +165,12 @@ const Book = () => {
         setVisible(true);
     }
 
+    const getTomorrowDate = () => {
+        const today = new Date();
+        today.setDate(today.getDate() + 1);
+        return today.toISOString().split('T')[0];
+    }
+
     const handleSubmitBooking = (e) => {
         e.preventDefault();
         if (!distancia || !selectedPlane) return;
@@ -174,14 +181,20 @@ const Book = () => {
         formData.append('llegada', llegada);
         formData.append('fecha', fecha);
         formData.append('distancia', distancia);
+        formData.append('duracion', duracion);
+        formData.append('precio', precioTotal);
 
-        fetch('https://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=bookFlight', {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=bookFlight', {
             method: 'POST',
             body: formData,
             credentials: 'include',
         })
         .then(res => res.json())
-        .then(() => alert('Reserva realizada correctamente'));
+        .then(() => {
+            alert('Reserva realizada correctamente')
+            
+            navigate('/');
+        });
     }
 
     return (
@@ -303,6 +316,7 @@ const Book = () => {
                                 id="fecha"
                                 value={fecha}
                                 onChange={e => setFecha(e.target.value)}
+                                min={getTomorrowDate()}
                                 className='rounded-md px-4 py-2 bg-gray-200 w-5/6'
                                 required
                             />

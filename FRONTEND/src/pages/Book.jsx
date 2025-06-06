@@ -117,10 +117,10 @@ const Book = () => {
     }
 
     const calcularPrecioHora = (rango_max) => {
-        if (rango_max < 2500) return 1200;
-        if (rango_max <= 5000) return 2100;
-        if (rango_max <= 7000) return 3500;
-        return 5000;
+        if (rango_max < 2500) return 8000;
+        if (rango_max <= 5000) return 10000;
+        if (rango_max <= 7000) return 12000;
+        return 15000;
     }
 
     const calcularCostoEscalas = (rango_max, escalas) => {
@@ -203,12 +203,12 @@ const Book = () => {
                 <div className="w-[1000px] p-6 space-y-8 text-[#0B1F3A]">
                     <h2 className="text-5xl font-bold text-center mt-6 mb-12">Book Your Private Jet</h2>
                     <form className='mb-6' onSubmit={handleSubmitBooking}>
-                        <div className='flex gap-5 items-center'>
-                            <label htmlFor="jet" className='w-1/6 font-semibold'>Choose your Jet:</label>
+                        <div className='flex flex-col lg:flex-row gap-5 lg:items-center'>
+                            <label htmlFor="jet" className='w-full md:w-1/6 font-semibold'>Choose your Jet:</label>
                             <select
                                 name="jet"
                                 id="jet"
-                                className='rounded-md px-4 py-2 bg-gray-200 w-5/6'
+                                className='rounded-md px-4 py-2 bg-gray-200 w-full lg:w-5/6'
                                 onChange={e => {
                                     setPlane(e.target.value);
                                     calcularItinerario();
@@ -224,8 +224,8 @@ const Book = () => {
                             </select>
                         </div>
 
-                        <div className='flex gap-5 my-6'>
-                            <div className='flex-col w-1/2'>
+                        <div className='flex flex-col md:flex-row gap-5 my-6'>
+                            <div className='flex-col w-full md:w-1/2'>
                                 <label htmlFor="salida" className="block mb-2 font-semibold">Choose the departure airport.</label>
                                 <div className="relative">
                                     <input
@@ -266,7 +266,7 @@ const Book = () => {
                                     )}
                                 </div>
                             </div>
-                            <div className='flex-col w-1/2'>
+                            <div className='flex-col w-full md:w-1/2'>
                                 <label htmlFor="llegada" className="block mb-2 font-semibold">Choose the arrival airport.</label>
                                 <div className="relative">
                                     <input
@@ -309,15 +309,15 @@ const Book = () => {
                             </div>
                         </div>
 
-                        <div className='flex gap-5 items-center'>
-                            <label htmlFor="fecha" className='w-1/6 font-semibold'>When are you going to travel?</label>
+                        <div className='flex flex-col md:flex-row gap-5'>
+                            <label htmlFor="fecha" className='w-full md:w-1/6 font-semibold'>When are you going to travel?</label>
                             <input
                                 type="date"
                                 id="fecha"
                                 value={fecha}
                                 onChange={e => setFecha(e.target.value)}
                                 min={getTomorrowDate()}
-                                className='rounded-md px-4 py-2 bg-gray-200 w-5/6'
+                                className='rounded-md px-4 py-2 bg-gray-200 w-full md:w-5/6'
                                 required
                             />
                         </div>
@@ -348,7 +348,7 @@ const Book = () => {
                         </div>
 
                         {isVisible && (
-                            <div className='w-[550px] flex flex-col justify-center items-center mx-auto mt-20 mb-12 border-2 border-[#0B1F3A] rounded-lg p-5'>
+                            <div className='w-[90%] md:w-[550px] flex flex-col justify-center items-center mx-auto mt-20 mb-12 border-2 border-[#0B1F3A] rounded-lg p-5'>
                                 <h4 className='text-2xl font-bold text-center mb-4'>Itinerary Summary</h4>
                                 <ul className='mb-6 text-left'>
                                     <li><strong>Distance:</strong> {distancia} km</li>
@@ -362,8 +362,8 @@ const Book = () => {
                                             <label className='font-semibold'>Credit Card Number</label>
                                             <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-full' required/>
                                         </div>
-                                        <div className='flex items-center justify-between'>
-                                            <div className='flex items-center gap-5'>
+                                        <div className='flex flex-col gap-5 md:flex-row md:items-center justify-between'>
+                                            <div className='flex flex-col md:flex-row md:items-center md:gap-5'>
                                                 <label className='font-semibold'>Validity date</label>
                                                 <div className='flex items-center'>
                                                     <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
@@ -371,7 +371,7 @@ const Book = () => {
                                                     <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
                                                 </div>
                                             </div>
-                                            <div className='flex items-center gap-5'>
+                                            <div className='flex flex-col md:flex-row md:items-center md:gap-5'>
                                                 <label className='font-semibold'>CVC</label>
                                                 <input type="number" className='rounded-md px-4 py-2 bg-gray-200' required/>
                                             </div>

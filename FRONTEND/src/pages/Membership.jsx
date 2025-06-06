@@ -86,15 +86,15 @@ const Membership = () => {
 
                     {
                         isVisible && (
-                            <div className='w-[550px] flex flex-col justify-center items-center mx-auto mt-20 mb-12 border-2 border-[#0B1F3A] rounded-lg p-5'>
-                                <h4 className='text-2xl font-bold text-center mb-3'>You selected: {selectedName}</h4>
+                            <div className='w-[90%] md:w-[550px] flex flex-col justify-center items-center mx-auto mt-20 mb-12 border-2 border-[#0B1F3A] rounded-lg p-5'>
+                                <h4 className='text-2xl font-bold text-center mb-3'>You selected: {selectedName} which is {selectedPrice}€</h4>
                                 <form onSubmit={handlePayment} className='w-full flex flex-col gap-5'>
                                     <div>
                                         <label className='font-semibold'>Credit Card Number</label>
                                         <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-full' required/>
                                     </div>
-                                    <div className='flex items-center justify-between'>
-                                        <div className='flex items-center gap-5'>
+                                    <div className='flex flex-col gap-5 md:flex-row md:items-center justify-between'>
+                                        <div className='flex flex-col md:flex-row md:items-center md:gap-5'>
                                             <label className='font-semibold'>Validity date</label>
                                             <div className='flex items-center'>
                                                 <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
@@ -102,7 +102,7 @@ const Membership = () => {
                                                 <input type="text" className='rounded-md px-4 py-2 bg-gray-200 w-[50px]' required/>
                                             </div>
                                         </div>
-                                        <div className='flex items-center gap-5'>
+                                        <div className='flex flex-col md:flex-row md:items-center md:gap-5'>
                                             <label className='font-semibold'>CVC</label>
                                             <input type="number" className='rounded-md px-4 py-2 bg-gray-200' required/>
                                         </div>
@@ -110,7 +110,7 @@ const Membership = () => {
                                     <input
                                         type="submit"
                                         className='rounded-full px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] font-bold text-sm hover:text-white hover:bg-[#0B1F3A] ease-in-out duration-200 mx-auto cursor-pointer'
-                                        value={`Pay $${selectedPrice}`}
+                                        value={'PAY'}
                                     />
                                 </form>
                                 <button

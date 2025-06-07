@@ -52,7 +52,7 @@ const Membership = () => {
         .then(data => {
 
             if (!data.includes('err')) {
-                navigate('/');
+                navigate('/dashboard');
             }
         })
     }

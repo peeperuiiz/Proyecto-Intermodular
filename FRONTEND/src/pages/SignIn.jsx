@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Signin = () => {
     const navigate = useNavigate();
-
     const [isSignUp, setIsSignUp] = useState(false);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
@@ -39,7 +38,7 @@ const Signin = () => {
             console.log(data);
 
             if (!data.includes('err')) {
-                navigate('/');
+                navigate('/dashboard');
             }
         })
     }
@@ -57,12 +56,20 @@ const Signin = () => {
             body: formData,
             credentials: 'include'
         })
-        .then((res) => res.text())
+        .then((res) => res.json())
         .then(data => {
-            console.log(data);
-
-            if (!data.includes('err')) {
-                navigate('/');
+            if (!data.err && data.type == 'R') {
+                navigate('/dashboard', {
+                    state: {
+                        tipo: data.type
+                    }
+                });
+            }else if(!data.err && data.type == 'A'){
+                navigate('/schedule', {
+                    state: {
+                        tipo: data.type
+                    }
+                });
             }
         })
     }

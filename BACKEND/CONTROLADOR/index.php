@@ -204,4 +204,30 @@ function dataDashboard(){
     ]);
 }
 
+function obtainViajes(){
+    require_once('../MODELOS/class.viaje.php');
+
+    $viaje = new Viaje();
+    $viajes = $viaje->getViajes();
+
+    echo json_encode(['viajes' => $viajes]);
+}
+
+function cancelViaje(){
+    require_once('../MODELOS/class.viaje.php');
+    require_once('../MODELOS/class.user.php');
+
+    $user = new User();
+    $data = $user->getUser($_SESSION['nom_usu']);
+
+    $viaje = new Viaje();
+    $res = $viaje->cancelViajes($data[0][0], $_POST['matricula'], $_POST['fecha']);
+
+    if(!$res){
+        echo json_encode(['canceled' => $res]);
+    }else{
+        echo json_encode(['canceled' => $res]);
+    }
+}
+
 ?>

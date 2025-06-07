@@ -193,7 +193,7 @@ const Book = () => {
         .then(() => {
             alert('Reserva realizada correctamente')
             
-            navigate('/');
+            navigate('/dashboard');
         });
     }
 

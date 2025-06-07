@@ -26,6 +26,8 @@ class Avion{
             $aviones[] = $fila;
         }
 
+        $consulta->close();
+
         return $aviones;
     }
 }

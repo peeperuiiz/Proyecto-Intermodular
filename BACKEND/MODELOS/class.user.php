@@ -50,10 +50,10 @@ class User{
     }
 
     public function validateLogIn($email, $pss){
-        $sentencia = 'select email from usuarios where password = ?';
+        $sentencia = 'select email from usuarios where password = ? and email = ?';
 
         $consulta = $this->con->prepare($sentencia);
-        $consulta->bind_param('s', $pss);
+        $consulta->bind_param('ss', $pss, $email);
         $consulta->bind_result($mail);
         $consulta->execute();
 

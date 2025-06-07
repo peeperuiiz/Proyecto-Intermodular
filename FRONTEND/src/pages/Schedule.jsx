@@ -24,19 +24,17 @@ const Schedule = () => {
 
     const handleCancelFlight = (nom_usu, matricula, fecha) => {
         if (confirm('¿Estás seguro de que quieres cancelar este vuelo?')) {
-            const formData = new FormData();
-            formData.append('nom_usu', nom_usu);
-            formData.append('matricula', matricula);
-            formData.append('fecha', fecha);
-
             fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=cancelViaje', {
                 method: 'POST',
                 credentials: 'include',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nom_usu, matricula, fecha }),
             })
             .then(res => res.json())
             .then(data => {
-                if (data.canceled != 'false') {
+                if (data.canceled !== 'false') {
                     alert('Vuelo cancelado correctamente');
                     window.location.reload();
                 } else {
@@ -91,7 +89,12 @@ const Schedule = () => {
                                     <td className='p-2'>{item.distancia} Km</td>
                                     <td className='p-2'>{item.duracion} Hours</td>
                                     <td className='p-2'>
-                                        <button onClick={() => handleCancelFlight(item.nom_usu, item.matricula, item.fecha)} className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-1 rounded-md cursor-pointer">Cancelar</button>
+                                        <form onSubmit={(e) => {
+                                            e.preventDefault(); 
+                                            handleCancelFlight(item.nom_usu, item.matricula, item.fecha)}}
+                                        >
+                                            <input type='submit' value='CANCEL' className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-1 rounded-md cursor-pointer" />
+                                        </form>
                                     </td>
                                 </tr>
                             ))

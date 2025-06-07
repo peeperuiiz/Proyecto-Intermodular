@@ -215,19 +215,41 @@ function obtainViajes(){
 
 function cancelViaje(){
     require_once('../MODELOS/class.viaje.php');
-    require_once('../MODELOS/class.user.php');
 
-    $user = new User();
-    $data = $user->getUser($_SESSION['nom_usu']);
+    $inputJSON = file_get_contents('php://input');
+    $input = json_decode($inputJSON, true);
+
+    $nom_usu = $input['nom_usu'] ?? null;
+    $matricula = $input['matricula'] ?? null;
+    $fecha = $input['fecha'] ?? null;
+
+    if (!$nom_usu || !$matricula || !$fecha) {
+        echo json_encode(['canceled' => 'false', 'error' => 'Faltan parámetros']);
+        return;
+    }
 
     $viaje = new Viaje();
-    $res = $viaje->cancelViajes($data[0][0], $_POST['matricula'], $_POST['fecha']);
+    $res = $viaje->cancelViajes($nom_usu, $matricula, $fecha);
 
-    if(!$res){
-        echo json_encode(['canceled' => $res]);
-    }else{
-        echo json_encode(['canceled' => $res]);
-    }
+    echo json_encode(['canceled' => $res]);
+}
+
+function obtainFleetForMaintenance(){
+    require_once('../MODELOS/class.avion.php');
+
+    $avion = new Avion();
+    $aviones = $avion->getFleetWoRes();
+
+    echo json_encode(['aviones' => $aviones]);
+}
+
+function obtainMaintenances(){
+    require_once('../MODELOS/class.maintenance.php');
+
+    $mant = new Maintenance();
+    $mantenimientos = $mant->getMantenimientos();
+
+    echo json_encode(['mantenimientos' => $mantenimientos]);
 }
 
 ?>

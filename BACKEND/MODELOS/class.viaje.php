@@ -30,10 +30,10 @@ class Viaje{
     }
 
     function getViajes(){
-        $sentencia = 'select nom_usu, marca, modelo, fecha, salida, llegada, distancia, duracion, precio from usuarios, aviones, viajes where dni = usuario and matricula = avion';
+        $sentencia = 'select nom_usu, matricula, marca, modelo, fecha, salida, llegada, distancia, duracion, precio from usuarios, aviones, viajes where dni = usuario and matricula = avion';
         
         $consulta = $this->con->prepare($sentencia);
-        $consulta->bind_result($nom_u, $marca, $modelo, $fecha, $salida, $llegada, $distancia, $duracion, $precio);
+        $consulta->bind_result($nom_u, $matricula, $marca, $modelo, $fecha, $salida, $llegada, $distancia, $duracion, $precio);
         $consulta->execute();
 
         $resultado = $consulta->get_result();
@@ -47,7 +47,7 @@ class Viaje{
     }
 
     function getViajesByUser($nom_u){
-        $sentencia = 'select nom_usu, matricula, marca, modelo, fecha, salida, llegada, distancia, duracion, precio from usuarios, aviones, viajes where dni = usuario and matricula = avion and nom_usu = ?';
+        $sentencia = 'select nom_usu, marca, modelo, fecha, salida, llegada, distancia, duracion, precio from usuarios, aviones, viajes where dni = usuario and matricula = avion and nom_usu = ?';
         
         $consulta = $this->con->prepare($sentencia);
         $consulta->bind_param('s', $nom_u);

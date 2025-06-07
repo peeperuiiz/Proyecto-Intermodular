@@ -29,8 +29,8 @@ function App() {
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/notfound' element={<NotFound />} />
             <Route path='/schedule' element={<Schedule />} />
-            <Route path='/schedule' element={<Maintenance />} />
-            <Route path='/schedule' element={<Accounting />} />
+            <Route path='/maintenance' element={<Maintenance />} />
+            <Route path='/accounting' element={<Accounting />} />
           </Route>
           <Route path='/signin' element={<SignLayout />}>
             <Route index element={<SignIn />} />

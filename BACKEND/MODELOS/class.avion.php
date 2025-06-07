@@ -30,5 +30,24 @@ class Avion{
 
         return $aviones;
     }
+
+    function getFleetWoRes(){
+        $sentencia = 'select * from aviones';
+
+        $consulta = $this->con->prepare($sentencia);
+        $consulta->bind_result($matricula, $marca, $modelo, $rango_max, $ruta);
+        $consulta->execute();
+
+        $resultado = $consulta->get_result();
+        $aviones = array();
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $aviones[] = $fila;
+        }
+
+        $consulta->close();
+
+        return $aviones;
+    }
 }
 ?>

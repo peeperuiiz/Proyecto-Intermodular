@@ -283,4 +283,62 @@ function obtainChartParams(){
     echo json_encode(['params' => $params]);
 }
 
+function obtainTotalIncome(){
+    require_once('../MODELOS/class.maintenance.php');
+    require_once('../MODELOS/class.viaje.php');
+    require_once('../MODELOS/class.user.php');
+    require_once('../MODELOS/class.membership.php');
+
+    $mant = new Maintenance();
+    $viaje = new Viaje();
+    $user = new User();
+    $membership = new Membership();
+
+    $users = $user->getAllUsers();
+    $viajes = $viaje->getViajes();
+    $members = $membership->getMemberships();
+    $mants = $mant->getMantenimientos();
+
+    $mem1 = 0;
+    $mem2 = 0;
+    $mem3 = 0;
+
+    for ($i = 0; $i < count($users); $i++) { 
+        if($users[$i]['membresia'] == 2) $mem1++;
+        if($users[$i]['membresia'] == 3) $mem2++;
+        if($users[$i]['membresia'] == 4) $mem3++;
+    }
+
+    $totalMem1 = $mem1 * $members[0]['precio'];
+    $totalMem2 = $mem2 * $members[1]['precio'];
+    $totalMem3 = $mem3 * $members[2]['precio'];
+
+    $totalMems = $totalMem1 + $totalMem2 + $totalMem3;
+
+    $totalViajes = 0;
+
+    for ($i = 0; $i < count($viajes); $i++) { 
+        $totalViajes += $viajes[$i]['precio'];
+    }
+
+    $totalIngreso = $totalViajes + $totalMems;
+
+    $totalGasto = 0;
+
+    for ($i = 0; $i < count($mants); $i++) { 
+        $totalGasto += $mants[$i]['costo'];
+    }
+
+    echo json_encode([
+        'income' => $totalIngreso,
+        'outcome' => $totalGasto
+    ]);
+}
+
+function memsBought(){
+    require_once('../MODELOS/class.membership.php');
+
+    $membership = new Membership();
+}
+
 ?>

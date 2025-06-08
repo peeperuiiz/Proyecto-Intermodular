@@ -111,7 +111,7 @@ const Maintenance = () => {
 
   return (
     <main className="flex-1 flex flex-col justify-center items-center p-6">
-      <h2 className="text-2xl font-bold mb-4">Jet's Maintenance Panel</h2>
+      <h2 className="text-[#0B1F3A] text-5xl font-bold my-10">Jet's Maintenance Panel</h2>
       <div className="mb-6 w-full max-w-4xl">
         <form className='flex gap-4' onSubmit={handleSubmitMaintenance}>
           <div className="relative flex items-center gap-4 w-1/2">
@@ -167,7 +167,6 @@ const Maintenance = () => {
           </table>
         </div>
         <div className="w-1/2 rounded p-4">
-        {console.log(params)}
           <PieChart
             colors={['blue', '#79C6F3', 'gray', '#0B1F3A']}
             series={[

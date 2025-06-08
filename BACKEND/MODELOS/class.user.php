@@ -11,6 +11,23 @@ class User{
     }
 
     //FUNCTIONS
+    public function getAllUsers(){
+        $sentencia = 'select dni, nombre, apellidos, email, nom_usu, h_vuelo, membresia, tipo from usuarios';
+
+        $consulta = $this->con->prepare($sentencia);
+        $consulta->bind_result($dni, $nombre, $apellidos, $email, $nom_usu, $h_vuelo, $membresia, $tipo);
+        $consulta->execute();
+
+        $resultado = $consulta->get_result();
+        $usuarios = array();
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $usuarios[] = $fila;
+        }
+
+        return $usuarios;
+    }
+
     public function getUser($nom_u){
         $sentencia = 'select dni, nombre, apellidos, email, nom_usu, h_vuelo, membresia, tipo from usuarios where nom_usu = ?';
 

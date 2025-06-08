@@ -12,7 +12,7 @@ class Viaje{
 
     //FUNCTIONS
     function insertViaje($usu, $avion, $fecha, $salida, $llegada, $distancia, $duracion, $precio){
-        $sentencia = 'INSERT INTO viajes VALUES (?,?,?,?,?,?,?,?)';
+        $sentencia = 'insert into viajes values (?,?,?,?,?,?,?,?)';
 
         $consulta = $this->con->prepare($sentencia);
         $consulta->bind_param('sssssidi', $usu, $avion, $fecha, $salida, $llegada, $distancia, $duracion, $precio);

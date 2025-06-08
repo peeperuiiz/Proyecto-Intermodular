@@ -31,10 +31,11 @@ class Avion{
         return $aviones;
     }
 
-    function getFleetWoRes(){
-        $sentencia = 'select * from aviones';
+    function getFleetWoRes($hoy){
+        $sentencia = 'select * from aviones where matricula not in (select avion from viajes where fecha = ?)';
 
         $consulta = $this->con->prepare($sentencia);
+        $consulta->bind_param('s', $hoy);
         $consulta->bind_result($matricula, $marca, $modelo, $rango_max, $ruta);
         $consulta->execute();
 

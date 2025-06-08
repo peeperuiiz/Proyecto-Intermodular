@@ -237,8 +237,10 @@ function cancelViaje(){
 function obtainFleetForMaintenance(){
     require_once('../MODELOS/class.avion.php');
 
+    $hoy = date('Y/m/d');
+
     $avion = new Avion();
-    $aviones = $avion->getFleetWoRes();
+    $aviones = $avion->getFleetWoRes($hoy);
 
     echo json_encode(['aviones' => $aviones]);
 }
@@ -249,7 +251,36 @@ function obtainMaintenances(){
     $mant = new Maintenance();
     $mantenimientos = $mant->getMantenimientos();
 
+    usort($mantenimientos, function($a, $b) {
+        return $b['orden'] <=> $a['orden'];
+    });
+
     echo json_encode(['mantenimientos' => $mantenimientos]);
+}
+
+function insertMaintenances(){
+    require_once('../MODELOS/class.maintenance.php');
+
+    $hoy = date('Y/m/d');
+    $precio = 0;
+
+    if($_POST['tipo'] == 'Rutinario') $precio = 250000;
+    elseif($_POST['tipo'] == 'Preventivo') $precio = 500000;
+    elseif($_POST['tipo'] == 'Correctivo') $precio = 1000000;
+
+    $mant = new Maintenance();
+    $res = $mant->insertMantenimientos($_POST['plane'], $hoy, $_POST['tipo'], $precio);
+
+    echo json_encode(['res' => $res]);
+}
+
+function obtainChartParams(){
+    require_once('../MODELOS/class.maintenance.php');
+
+    $mant = new Maintenance();
+    $params = $mant->getChartParams();
+
+    echo json_encode(['params' => $params]);
 }
 
 ?>

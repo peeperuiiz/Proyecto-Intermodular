@@ -53,18 +53,18 @@ const Schedule = () => {
     return (
         <main className='flex-1 flex flex-col items-center p-8'>
             <h2 className='text-5xl font-bold text-[#0B1F3A]'>Flight Schedule</h2>
-            <div className="flex gap-10 mt-10 mb-6">
-                <div className='flex gap-2 items-center text-[#0B1F3A]'>
+            <div className="flex flex-col md:flex-row gap-10 mt-10 mb-6">
+                <div className='flex flex-col md:flex-row gap-2 md:items-center text-[#0B1F3A]'>
                     <label className='font-semibold'>Name:</label>
                     <input type="text" className="bg-gray-200 px-3 py-2 rounded-md" value={filterName} onChange={(e) => setFilterName(e.target.value)} />
                 </div>
-                <div className='flex gap-2 items-center'>
+                <div className='flex flex-col md:flex-row gap-2 md:items-center'>
                     <label className='font-semibold'>Date:</label>
                     <input type="date" className="bg-gray-200 px-3 py-2 rounded-md" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} />
                 </div>
             </div>
-            <div>
-                <table className="w-[1300px] border-collapse">
+            <div className='overflow-x-auto w-full'>
+                <table className="w-[1300px] mx-auto">
                     <thead>
                         <tr className='border-b'>
                             <th className='text-center p-2 text-[#0B1F3A]'>User</th>

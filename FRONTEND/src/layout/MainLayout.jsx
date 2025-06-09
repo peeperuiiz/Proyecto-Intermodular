@@ -42,9 +42,9 @@ const MainLayout = () => {
   return (
     <>
         <div className='min-h-screen flex flex-col'>
-            <Header type = {links} user={typeUser}/>
+            <Header type={links} user={typeUser}/>
                 <Outlet/>
-            <Footer/>
+            <Footer type={typeUser}/>
         </div>
     </>
   )

@@ -102,36 +102,36 @@ function logOutUser(){
 
 // DESACTIVADO PORQUE EL CORREO NO EXISTE
 
-// function submitContactData(){
-//     require_once('../vendor/autoload.php');
+function submitContactData(){
+    require_once('../vendor/autoload.php');
 
-//     $mail = new PHPMailer(true);
+    $mail = new PHPMailer(true);
 
-//     try{
+    try{
 
-//         $mail->isSMTP();
-//         $mail->Host       = 'smtp.aeroelite.com';
-//         $mail->SMTPAuth   = true;
-//         $mail->Username   = 'info@aeroelite.com';
-//         $mail->Password   = '12345';
-//         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-//         $mail->Port       = 587;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.aeroelite.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'info@aeroelite.com';
+        $mail->Password   = '12345';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
 
-//         // Remitente y destinatario
-//         $mail->setFrom('info@aeroelite.com', 'AeroElite S.L.');
-//         $mail->addAddress($_POST['email']);
+        // Remitente y destinatario
+        $mail->setFrom('info@aeroelite.com', 'AeroElite S.L.');
+        $mail->addAddress($_POST['email']);
 
-//         // Contenido
-//         $mail->isHTML(true);
-//         $mail->Subject = 'Confirmación de Contacto';
-//         $mail->Body    = '<h1>Gracias por ponerte en contacto con nosotros</h1><p>Nos pondremos en contacto contigo a mayor brevedad posible</p>';
-//         $mail->AltBody = 'Gracias por ponerte en contacto con nosotros. Nos pondremos en contacto contigo a mayor brevedad posible';
+        // Contenido
+        $mail->isHTML(true);
+        $mail->Subject = 'Confirmación de Contacto';
+        $mail->Body    = '<h1>Gracias por ponerte en contacto con nosotros</h1><p>Nos pondremos en contacto contigo a mayor brevedad posible</p>';
+        $mail->AltBody = 'Gracias por ponerte en contacto con nosotros. Nos pondremos en contacto contigo a mayor brevedad posible';
 
-//         $mail->send();
-//     }catch(Exception $e){
-//         echo json_encode(['err' => $mail->ErrorInfo]);
-//     }
-// }
+        $mail->send();
+    }catch(Exception $e){
+        echo json_encode(['err' => $mail->ErrorInfo]);
+    }
+}
 
 function obtainFleet(){
     require_once('../MODELOS/class.avion.php');
@@ -175,11 +175,15 @@ function bookFlight(){
 
     $user = new User();
     $data = $user->getUser($_SESSION['nom_usu']);
+    $updated = $user->updateHorasVuelo($_POST['duracion'], $_SESSION['nom_usu']);
 
     $viaje = new Viaje();
     $res = $viaje->insertViaje($data[0][0], $_POST['plane'], $_POST['fecha'], $_POST['salida'], $_POST['llegada'], $_POST['distancia'], $_POST['duracion'], $_POST['precio']);
 
-    echo json_encode(['res' => $res]);
+    echo json_encode([
+        'res' => $res,
+        'updated' => $updated
+    ]);
 }
 
 function dataDashboard(){

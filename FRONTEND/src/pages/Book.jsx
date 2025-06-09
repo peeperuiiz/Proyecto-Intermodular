@@ -193,7 +193,9 @@ const Book = () => {
         .then(() => {
             alert('Reserva realizada correctamente')
             
-            navigate('/dashboard');
+            setTimeout(() => {
+                navigate('/dashboard')
+            })
         });
     }
 

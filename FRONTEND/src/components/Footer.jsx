@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Footer = () => {
+const Footer = ({type}) => {
+
   return (
     <footer className="bg-[#0B1F3A] text-white font-semibold py-10">
       <div className="max-w-7xl mx-auto px-6 flex flex-wrap gap-10 justify-between">
@@ -13,10 +15,7 @@ const Footer = () => {
         <div className="w-full sm:w-[45%] md:w-[20%]">
           <h3 className="text-lg font-medium mb-4">Company</h3>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Fleet</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Book</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+            <Link to='/contact' className="hover:text-white transition-colors">Contact</Link>
           </ul>
         </div>
         <div className="w-full sm:w-[45%] md:w-[20%]">

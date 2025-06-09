@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const Dashboard = () => {
-    const location = useLocation();
-    const tipo = location.state?.tipo;
+    const [tipo, setTipo] = useState('');
     const [dni, setDni] = useState('');
     const [nombre, setNombre] = useState('');
     const [apellidos, setApellidos] = useState('');
@@ -14,9 +13,22 @@ const Dashboard = () => {
     const [viajes, setViajes] = useState([]);
     const [openIndex, setOpenIndex] = useState(null);
 
-    if (tipo !== 'R' && tipo !== 'A') {
-        return (<Navigate to='/notfound' replace />);
-    }
+    useEffect(() => {
+        fetch('http://localhost/Proyecto-Intermodular/BACKEND/CONTROLADOR/index.php?action=getTypeUser', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(response => response.json())
+        .then(data => {
+            setTipo(data.type);
+        })
+        }, [])
+
+    setTimeout(() => {
+        if (tipo !== 'R' && tipo !== 'A') {
+            return (<Navigate to='/notfound' replace />)
+        }
+    }, 200)
 
     const toggleAccordion = (index) => {
         setOpenIndex((prevIndex) => (prevIndex === index ? null : index));

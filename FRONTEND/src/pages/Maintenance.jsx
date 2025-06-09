@@ -113,8 +113,8 @@ const Maintenance = () => {
     <main className="flex-1 flex flex-col justify-center items-center p-6">
       <h2 className="text-[#0B1F3A] text-5xl font-bold my-10">Jet's Maintenance Panel</h2>
       <div className="mb-6 w-full max-w-4xl">
-        <form className='flex gap-4' onSubmit={handleSubmitMaintenance}>
-          <div className="relative flex items-center gap-4 w-1/2">
+        <form className='flex flex-col md:flex-row items-center gap-4' onSubmit={handleSubmitMaintenance}>
+          <div className="relative flex flex-col md:flex-row md:items-center gap-4 w-[80%] md:w-2/3">
             <label className='font-semibold text-[#0B1F3A]'>Model:</label>
             <input type="text" value={searchInput} onChange={(e) => handleSearchChange(e.target.value)} className="bg-gray-200 p-2 rounded w-full" />
             {suggestions.length > 0 && (
@@ -127,10 +127,10 @@ const Maintenance = () => {
               </ul>
             )}
           </div>
-          <div className='flex items-center gap-15'>
-            <div className='flex items-center gap-4'>
+          <div className='flex flex-col md:flex-row w-[80%] gap-4 md:w-1/3'>
+            <div className='flex flex-col md:flex-row md:items-center gap-4 w-full'>
               <label className='font-semibold text-[#0B1F3A]'>Type:</label>
-              <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)} className="border p-2 rounded">
+              <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)} className="border p-2 w-full rounded ">
                 <option value="Rutinario">Routine</option>
                 <option value="Preventivo">Preventive</option>
                 <option value="Correctivo">Corrective</option>
@@ -140,8 +140,8 @@ const Maintenance = () => {
           </div>
         </form>
       </div>
-      <div className="flex gap-6 w-full max-w-6xl">
-        <div className="w-1/2">
+      <div className="flex flex-wrap gap-6 justify-center w-full max-w-6xl">
+        <div className="w-[500px] p-4">
           <h3 className="text-lg font-semibold mb-2">Last 5 Maintenances</h3>
           <table className="w-full text-[#0B1F3A]">
             <thead className="">
@@ -166,7 +166,7 @@ const Maintenance = () => {
             </tbody>
           </table>
         </div>
-        <div className="w-1/2 rounded p-4">
+        <div className="w-[500px] rounded p-4">
           <PieChart
             colors={['blue', '#79C6F3', 'gray', '#0B1F3A']}
             series={[

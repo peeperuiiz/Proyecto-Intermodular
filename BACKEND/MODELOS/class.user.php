@@ -167,6 +167,24 @@ class User{
             return false;
         }
     }
+
+    public function updateHorasVuelo($horas, $nom_usu){
+        $sentencia = 'update usuarios set h_vuelo = h_vuelo + ? where nom_usu = ?';
+
+        $consulta = $this->con->prepare($sentencia);
+        $consulta->bind_param('is', $horas, $nom_usu);
+        $consulta->execute();
+
+        if($consulta->affected_rows > 0){
+                $consulta->close();
+
+                return true;
+            }else{
+                $consulta->close();
+
+                return false;
+            }
+    }
 }
 
 ?>

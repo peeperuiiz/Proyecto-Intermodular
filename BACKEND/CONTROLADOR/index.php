@@ -337,8 +337,59 @@ function obtainTotalIncome(){
 
 function memsBought(){
     require_once('../MODELOS/class.membership.php');
+    require_once('../MODELOS/class.user.php');
 
+    $user = new User();
     $membership = new Membership();
+
+    $users = $user->getAllUsers();
+    $members = $membership->getMemberships();
+
+    $mem1 = 0;
+    $mem2 = 0;
+    $mem3 = 0;
+
+    for ($i = 0; $i < count($users); $i++) { 
+        if($users[$i]['membresia'] == 2) $mem1++;
+        if($users[$i]['membresia'] == 3) $mem2++;
+        if($users[$i]['membresia'] == 4) $mem3++;
+    }
+
+    $totalMem1 = $mem1 * $members[0]['precio'];
+    $totalMem2 = $mem2 * $members[1]['precio'];
+    $totalMem3 = $mem3 * $members[2]['precio'];
+
+    $totalMems = $totalMem1 + $totalMem2 + $totalMem3;
+
+    echo json_encode([
+        'income' => $totalMems,
+        'mem1' => $mem1,
+        'mem2' => $mem2,
+        'mem3' => $mem3,
+    ]);
+}
+
+function avgGrowth(){
+    require_once('../MODELOS/class.viaje.php');
+
+    $viaje = new Viaje();
+
+    $media = $viaje->avgPrice();
+
+    $total = 0;
+    $count = 0;
+
+    foreach ($media as $entry) {
+        $total += (int)$entry['value'];
+        $count++;
+    }
+
+    $avg = ($count > 0) ? intval($total / $count) : 0;
+
+    echo json_encode([
+        'income' => $media,
+        'media' => $avg
+    ]);
 }
 
 ?>

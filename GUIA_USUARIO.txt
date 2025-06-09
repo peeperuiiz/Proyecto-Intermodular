@@ -1,0 +1,161 @@
+GUIA DE USUARIO - SISTEMA DE GESTIÓN DE PROYECTOS
+
+1. INICIO DE SESIÓN
+Para acceder al sistema:
+- Visite la página principal
+- Ingrese su correo electrónico registrado
+- Ingrese su contraseña
+- Haga clic en "Iniciar Sesión"
+- Opcional: Marque "Mantener sesión iniciada" para no tener que ingresar sus credenciales cada vez
+
+2. USUARIOS REGISTRADOS
+
+2.1. NAVEGACIÓN BÁSICA
+- Menú superior: Acceso a todas las funcionalidades
+- Dashboard: Resumen de sus proyectos y tareas
+- Notificaciones: Icono en la parte superior derecha
+- Perfil: Acceso a sus datos personales
+
+2.2. GESTIÓN DE TAREAS
+- Ver tareas asignadas en el dashboard
+- Detalles de cada tarea:
+  * Descripción completa
+  * Fecha límite
+  * Estado actual
+  * Archivos adjuntos
+- Actualizar estado de tareas:
+  * En progreso
+  * Completo
+  * Pendiente
+  * Bloqueado
+- Agregar comentarios a tareas
+- Subir archivos relacionados
+
+2.3. COMUNICACIÓN
+- Chat interno con el equipo
+- Comentarios en tareas
+- Notificaciones de cambios
+- Mensajes del sistema
+
+3. ADMINISTRADORES
+
+3.1. GESTIÓN DE USUARIOS
+- Ver lista completa de usuarios
+- Crear nuevos usuarios
+- Asignar roles (Administrador, Gerente, Colaborador)
+- Modificar datos de usuarios
+- Deshabilitar/Activar usuarios
+
+3.2. GESTIÓN DE PROYECTOS
+- Crear nuevos proyectos
+  * Nombre del proyecto
+  * Descripción
+  * Fecha de inicio
+  * Fecha estimada de finalización
+  * Presupuesto
+  * Recursos asignados
+- Asignar usuarios a proyectos
+- Modificar información de proyectos
+- Cambiar estado de proyectos
+- Eliminar proyectos (con precaución)
+
+3.3. GESTIÓN DE TAREAS
+- Crear nuevas tareas
+- Asignar tareas a usuarios
+- Establecer prioridades
+- Establecer fechas límite
+- Ver progreso de todas las tareas
+- Generar reportes de tareas
+
+3.4. GESTIÓN DE RECURSOS
+- Administrar recursos humanos
+- Administrar recursos materiales
+- Asignar recursos a proyectos
+- Controlar uso de recursos
+- Generar reportes de recursos
+
+4. REPORTES Y ESTADÍSTICAS
+
+4.1. Reportes Generales
+- Estado de proyectos
+- Avance de tareas
+- Uso de recursos
+- Cumplimiento de plazos
+
+4.2. Gráficos y Visualizaciones
+- Gráficos de progreso
+- Diagramas de Gantt
+- Métricas de rendimiento
+- Indicadores de calidad
+
+5. CONFIGURACIÓN DEL SISTEMA
+
+5.1. Perfil de Usuario
+- Modificar datos personales
+- Cambiar contraseña
+- Configurar notificaciones
+- Preferencias de interfaz
+
+5.2. Configuración General
+- Idioma
+- Zona horaria
+- Unidades de medida
+- Formato de fechas
+
+6. PREGUNTAS FRECUENTES
+
+6.1. Problemas Comunes
+¿Olvidé mi contraseña?
+- Haga clic en "Recuperar contraseña"
+- Siga las instrucciones enviadas por correo
+
+¿No puedo acceder al sistema?
+- Verifique su conexión a Internet
+- Asegúrese de usar el navegador recomendado
+- Limpie la caché del navegador
+
+¿Cómo crear un nuevo proyecto?
+- Acceda a la sección de proyectos
+- Haga clic en "Nuevo Proyecto"
+- Complete el formulario
+
+6.2. Funcionalidades
+¿Cómo asignar tareas?
+- Vaya al proyecto correspondiente
+- Seleccione "Nueva Tarea"
+- Asigne al colaborador
+
+¿Cómo generar reportes?
+- Vaya a la sección de reportes
+- Seleccione el tipo de reporte
+- Configure los parámetros
+- Exporte en formato deseado
+
+7. SOPORTE TÉCNICO
+
+7.1. Contacto
+- Correo electrónico: soporte@empresa.com
+- Teléfono: +XX XXX XXX XXX
+- Horario: Lunes a Viernes, 9:00 a 18:00
+
+7.2. Reporte de Problemas
+1. Describa el problema detalladamente
+2. Indique la fecha y hora
+3. Especifique el navegador usado
+4. Incluya capturas de pantalla si es posible
+5. Envíe el reporte al soporte técnico
+
+7.3. Actualizaciones del Sistema
+- El sistema se actualiza periódicamente
+- Se notificará con antelación
+- Las actualizaciones son automáticas
+- Mantenga su navegador actualizado
+
+NOTAS IMPORTANTES:
+1. Mantenga su contraseña segura y no la comparta
+2. Actualice su información personal regularmente
+3. Verifique sus notificaciones periódicamente
+4. Reporte cualquier problema técnico inmediatamente
+5. Consulte el soporte técnico antes de realizar cambios importantes
+
+Este manual está sujeto a actualizaciones según nuevas funcionalidades del sistema.

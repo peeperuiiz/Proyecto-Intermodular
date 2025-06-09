@@ -65,20 +65,24 @@ const Membership = () => {
                     <div className='w-full flex flex-wrap justify-center mx-auto gap-10 mb-6'>
                         {
                             membership.map((item, index) => (
-                                <div key={index} className='w-[400px] p-5 border-2 border-[#0B1F3A] rounded-lg flex flex-col items-center'>
-                                    <div className='h-[250px] bg-cover bg-center w-full' style={{ backgroundImage: `url(${item.ruta})` }}></div>
-                                    <h3 className='text-2xl font-bold text-center my-3'>{item.nombre}</h3>
-                                    <div className='font-semibold text-center flex flex-col items-center justify-center'>
-                                        <span>Enabled flight hours: {item.h_vuelo_disp}</span>
-                                        <span>Enabled range: {item.rango_vuelo}</span>
+                                <div key={index} className='w-[400px] p-5 border-2 border-[#0B1F3A] rounded-lg flex flex-col items-center justify-between'>
+                                    <div className='w-[250px] h-full flex items-center'>
+                                        <img src={item.ruta} alt="" />
                                     </div>
-                                    <p className='text-justify my-3'>{item.descripcion}</p>
-                                    <button
-                                        className='rounded-lg px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] font-bold text-sm hover:text-white hover:bg-[#0B1F3A] ease-in-out duration-200 mx-auto cursor-pointer'
-                                        onClick={() => handleBuyClick(item.precio, item.nombre)}
-                                    >
-                                        BUY
-                                    </button>
+                                    <div className='text-center'>
+                                        <h3 className='text-2xl font-bold text-center my-3'>{item.nombre}</h3>
+                                        <div className='font-semibold text-center flex flex-col items-center justify-center'>
+                                            <span>Enabled flight hours: {item.h_vuelo_disp}</span>
+                                            <span>Enabled range: {item.rango_vuelo}</span>
+                                        </div>
+                                        <p className='text-justify my-3'>{item.descripcion}</p>
+                                        <button
+                                            className='rounded-lg px-6 py-2 text-[#0B1F3A] border-2 border-[#0B1F3A] font-bold text-sm hover:text-white hover:bg-[#0B1F3A] ease-in-out duration-200 mx-auto cursor-pointer'
+                                            onClick={() => handleBuyClick(item.precio, item.nombre)}
+                                            >
+                                            BUY
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         }

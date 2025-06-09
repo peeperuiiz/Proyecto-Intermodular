@@ -83,6 +83,33 @@ class Viaje{
             return false;
         }
     }
+
+    function avgPrice(){
+        $sentencia = "SELECT 
+                            DATE_FORMAT(fecha, '%Y-%m') AS label,
+                            AVG(precio) AS value
+                        FROM 
+                            viajes
+                        GROUP BY 
+                            DATE_FORMAT(fecha, '%Y-%m')
+                        ORDER BY 
+                            DATE_FORMAT(fecha, '%Y-%m') ASC";
+
+        $consulta = $this->con->prepare($sentencia);
+        $consulta->bind_result($mes, $avg);
+        $consulta->execute();
+
+        $resultado = $consulta->get_result();
+        $media = array();
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $media[] = $fila;
+        }
+
+        $consulta->close();
+
+        return $media;
+    }
 }
 
 ?>
